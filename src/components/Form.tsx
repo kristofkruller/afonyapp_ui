@@ -1,13 +1,13 @@
 import {
   memo,
-  useMemo,
+  useId,
   useReducer,
   useState,
   type ChangeEvent,
   type FormEvent,
 } from "react";
 import { ActionBtn } from "@/components/assets/Button";
-import { generateId, strongPasswordRegex } from "@/helpers";
+import { strongPasswordRegex } from "@/helpers";
 
 const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
@@ -19,21 +19,23 @@ const formReducer = (state: FormState, action: FormAction) => {
 };
 
 // --- Input mező komponens (memozott!) ---
-const inputId = useMemo(() => generateId(), []);
-
 const FormInput = memo(
-  ({ name, type = "text", value, onChange, placeholder }: InputProps) => (
-    <input
-      className="bg-white/20 !p-2 rounded-[10px]"
-      id={inputId}
-      name={name}
-      type={type}
-      value={value}
-      onChange={onChange}
-      required={true}
-      placeholder={placeholder}
-    />
-  )
+  ({ name, type = "text", value, onChange, placeholder }: InputProps) => {
+    const inputId = useId();
+
+    return (
+      <input
+        className="bg-white/20 !p-2 rounded-[10px]"
+        id={inputId}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        required={true}
+        placeholder={placeholder}
+      />
+    );
+  }
 );
 
 FormInput.displayName = "FormInput"; // memóhoz
