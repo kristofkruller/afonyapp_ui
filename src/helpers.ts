@@ -1,0 +1,8 @@
+export function generateId(length = 8) {
+  return Math.random()
+    .toString(36)
+    .substring(2, 2 + length);
+}
+
+export const strongPasswordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
