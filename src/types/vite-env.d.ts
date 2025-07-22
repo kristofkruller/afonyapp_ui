@@ -30,3 +30,15 @@ type InputProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
 };
+
+// AUTH
+type AuthErrorResponse = {
+  error: string;
+};
+
+type AuthSuccessResponse = {
+  token: string;
+  user: {
+    email: string;
+  };
+};

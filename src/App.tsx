@@ -6,8 +6,8 @@ import RouteLayout from "./route/RouteLayout";
 import AdminForm from "./route/AdminForm";
 import CostumerForm from "./route/CostumerForm";
 
-import RouteError from "./features/error/RouteError";
-import WrongUrl from "./features/error/WrongUrl";
+import RouteError from "./components/error/RouteError";
+import WrongUrl from "./components/error/WrongUrl";
 
 function App() {
   return (
