@@ -14,6 +14,10 @@ interface FormState {
   pw: string;
   cpw?: string;
 }
+type LoginFormState = {
+  email: string;
+  pw: string;
+};
 type FormAction = {
   type: "SUBMIT";
   field: keyof FormState;

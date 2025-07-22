@@ -89,7 +89,10 @@ body {
     @apply cursor-default flex flex-col items-center justify-around xl:w-1/2 lg:w-3/4 w-full mx-auto text-center h-full [&>*]:my-5 [&>*]:focus:outline-none;
   }
   form.wrapper {
-    @apply gap-4 !pt-8;
+    @apply gap-4 !pt-8 w-full;
+  }
+  form .err {
+    @apply text-fuchsia-800/70 text-xs w-full !px-4;
   }
 }
 
