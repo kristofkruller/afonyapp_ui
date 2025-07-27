@@ -11,7 +11,7 @@ export const validateLoginFields = (form: LoginFormState) => {
   if (!form.email) errors.email = "Email kötelező";
   else if (!mailRegex.test(form.email)) errors.email = "Hibás email formátum";
 
-  if (!form.pw) errors.pw = "Jelszó kötelező";
+  if (!form.password) errors.password = "Jelszó kötelező";
 
   return errors;
 };
@@ -22,14 +22,14 @@ export const validateRegisterFields = (form: FormState) => {
   if (!form.email) errors.email = "Email kötelező";
   else if (!mailRegex.test(form.email)) errors.email = "Hibás email formátum";
 
-  if (!form.pw) errors.pw = "Jelszó kötelező";
-  else if (!strongPasswordRegex.test(form.pw))
-    errors.pw = "A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert";
+  if (!form.password) errors.password = "Jelszó kötelező";
+  else if (!strongPasswordRegex.test(form.password))
+    errors.password = "A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert";
 
-  if (!form.cpw) errors.cpw = "Jelszó megerősítés kötelező";
-  else if (form.pw !== form.cpw) errors.cpw = "A jelszavak nem egyeznek";
+  if (!form.cpassword) errors.cpassword = "Jelszó megerősítés kötelező";
+  else if (form.password !== form.cpassword) errors.cpassword = "A jelszavak nem egyeznek";
 
-  if (form.pw === form.email) errors.pw = "A jelszó nem egyezhet az email címmel";
+  if (form.password === form.email) errors.password = "A jelszó nem egyezhet az email címmel";
 
   return errors;
 };

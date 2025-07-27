@@ -11,12 +11,12 @@ type BtnProp = {
 // FORM
 interface FormState {
   email: string;
-  pw: string;
-  cpw?: string;
+  password: string;
+  cpassword?: string;
 }
 type LoginFormState = {
   email: string;
-  pw: string;
+  password: string;
 };
 type FormAction = {
   type: "SUBMIT";
@@ -29,16 +29,4 @@ type InputProps = {
   value?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-};
-
-// AUTH
-type AuthErrorResponse = {
-  error: string;
-};
-
-type AuthSuccessResponse = {
-  token: string;
-  user: {
-    email: string;
-  };
 };

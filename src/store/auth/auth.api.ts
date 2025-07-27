@@ -1,17 +1,20 @@
 import axios from "axios";
+import type { AuthSuccessResponse } from "./types";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
-export const register = async (data: {
+export const login = async (payload: {
   email: string;
-  pw: string;
-  // cpw: string; // a backendnek nem kell confirm pw. 
-}) => {
-  const res = await axios.post(`${BASE_URL}/register.php`, data);
+  password: string;
+}): Promise<AuthSuccessResponse> => {
+  const res = await axios.post(`${BASE_URL}/login.php`, payload);
   return res.data;
 };
-
-export const login = async (data: { email: string; pw: string }) => {
-  const res = await axios.post(`${BASE_URL}/login.php`, data);
+export const register = async (payload: {
+  email: string;
+  password: string;
+  // cpassword: string; // a backendnek nem kell confirm password.
+}): Promise<AuthSuccessResponse> => {
+  const res = await axios.post(`${BASE_URL}/register`, payload);
   return res.data;
 };

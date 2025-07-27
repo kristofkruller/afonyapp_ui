@@ -8,6 +8,8 @@ import {
 } from "@/helpers";
 import { useLogin, useRegister } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
+import type { AxiosError } from "axios";
+import type { AuthErrorResponse } from "@/store/auth/types";
 
 const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
@@ -62,19 +64,18 @@ const handleFormChange: HandleFormChange = (e, dispatch, setErrors, form) => {
       else if (!mailRegex.test(value)) newErrors.email = "Hibás email formátum";
     }
 
-    if (field === "pw") {
-      if (!value) newErrors.pw = "A jelszó mező kötelező";
+    if (field === "password") {
+      if (!value) newErrors.password = "A jelszó mező kötelező";
       else if (!strongPasswordRegex.test(value)) {
-        newErrors.pw =
-          `A minimum 8 karakteres jelszónak tartalmaznia kell nagybetűt, kisbetűt, 
+        newErrors.password = `A minimum 8 karakteres jelszónak tartalmaznia kell nagybetűt, kisbetűt, 
           számot és speciális karaktert`;
       }
     }
 
-    if (field === "cpw") {
-      if (!value) newErrors.cpw = "A jelszó megerősítése kötelező";
-      else if (value !== form.pw) {
-        newErrors.cpw = "A jelszavak nem egyeznek";
+    if (field === "cpassword") {
+      if (!value) newErrors.cpassword = "A jelszó megerősítése kötelező";
+      else if (value !== form.password) {
+        newErrors.cpassword = "A jelszavak nem egyeznek";
       }
     }
 
@@ -89,8 +90,8 @@ const InputError = ({ error }: { error?: string }) =>
 const SignUpForm = () => {
   const [form, dispatch] = useReducer(formReducer, {
     email: "",
-    pw: "",
-    cpw: "",
+    password: "",
+    cpassword: "",
   });
   const [errors, setErrors] = useState<Partial<FormState>>({});
 
@@ -107,17 +108,21 @@ const SignUpForm = () => {
     }
 
     registerMutation.mutate(
-      { email: form.email, pw: form.pw },
+      {
+        email: form.email.trim().toLowerCase(),
+        password: form.password,
+      },
       {
         onSuccess: (data) => {
-          if (data?.token) {
-            setToken(data.token);
-            console.debug("✅ Regisztráció sikeres, token mentve.");
-          } else if (data?.message) {
-            setErrors({ email: data.message });
+          if (!data.token) {
+            console.warn("❗ Token hiányzik a válaszból.");
+            return;
           }
+
+          setToken(data.token);
+          console.debug("✅ Regisztráció sikeres, token mentve.");
         },
-        onError: (error: any) => {
+        onError: (error: AxiosError<AuthErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",
           });
@@ -130,8 +135,8 @@ const SignUpForm = () => {
     registerMutation.isPending ||
     Object.values(errors).some(Boolean) ||
     !form.email ||
-    !form.pw ||
-    !form.cpw;
+    !form.password ||
+    !form.cpassword;
 
   return (
     <form onSubmit={handleRegisterSubmit} className="wrapper space-y-2">
@@ -145,22 +150,22 @@ const SignUpForm = () => {
       <InputError error={errors.email} />
 
       <FormInput
-        name="pw"
+        name="password"
         type="password"
-        value={form.pw}
+        value={form.password}
         onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
         placeholder="Jelszó"
       />
-      <InputError error={errors.pw} />
+      <InputError error={errors.password} />
 
       <FormInput
-        name="cpw"
+        name="cpassword"
         type="password"
-        value={form.cpw}
+        value={form.cpassword}
         onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
         placeholder="Jelszó megerősítése"
       />
-      <InputError error={errors.cpw} />
+      <InputError error={errors.cpassword} />
 
       <ActionBtn type="submit" content="Regisztráció" disabled={isDisabled} />
     </form>
@@ -170,7 +175,7 @@ const SignUpForm = () => {
 //LOG IN
 
 const LoginForm = () => {
-  const [form, dispatch] = useReducer(formReducer, { email: "", pw: "" });
+  const [form, dispatch] = useReducer(formReducer, { email: "", password: "" });
   const [errors, setErrors] = useState<Partial<LoginFormState>>({});
 
   const loginMutation = useLogin();
@@ -186,16 +191,17 @@ const LoginForm = () => {
     }
 
     loginMutation.mutate(
-      { email: form.email, pw: form.pw },
+      {
+        email: form.email.trim().toLowerCase(),
+        password: form.password,
+      },
       {
         onSuccess: (data) => {
           if (data?.token) {
             setToken(data.token);
-          } else if (data?.message) {
-            setErrors({ email: data.message });
           }
         },
-        onError: (error: any) => {
+        onError: (error: AxiosError<AuthErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",
           });
@@ -208,7 +214,7 @@ const LoginForm = () => {
     loginMutation.isPending ||
     Object.values(errors).some(Boolean) ||
     !form.email ||
-    !form.pw;
+    !form.password;
 
   return (
     <form onSubmit={handleLoginSubmit} className="wrapper space-y-2">
@@ -222,13 +228,13 @@ const LoginForm = () => {
       <InputError error={errors.email} />
 
       <FormInput
-        name="pw"
+        name="password"
         type="password"
-        value={form.pw}
+        value={form.password}
         onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
         placeholder="Jelszó"
       />
-      <InputError error={errors.pw} />
+      <InputError error={errors.password} />
 
       <ActionBtn type="submit" content="Bejelentkezés" disabled={isDisabled} />
     </form>

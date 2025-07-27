@@ -1,28 +1,29 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { login, register } from '@/store/auth/auth.api';
-import { useAuthStore } from '@/store/auth/useAuthStore';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { login, register } from "@/store/auth/auth.api";
+import { useAuthStore } from "@/store/auth/useAuthStore";
+import type { AxiosError } from "axios";
+import type { AuthErrorResponse, AuthSuccessResponse } from "./types";
 
-export const useRegister = () => {
-  return useMutation({
-    mutationFn: register,
+export const useLogin = () => {
+  const queryClient = useQueryClient();
+  const setToken = useAuthStore.getState().setToken;
+
+  return useMutation<AuthSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+    mutationFn: login,
     onSuccess: (data) => {
-      if ('token' in data) {
-        useAuthStore.getState().setToken(data.token);
-      }
+      setToken(data.token);
+      queryClient.invalidateQueries(); // invalidate user-related data if any
     },
   });
 };
 
-export const useLogin = () => {
-  const queryClient = useQueryClient();
+export const useRegister = () => {
+  const setToken = useAuthStore.getState().setToken;
 
-  return useMutation({
-    mutationFn: login,
+  return useMutation<AuthSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+    mutationFn: register,
     onSuccess: (data) => {
-      if ('token' in data) {
-        useAuthStore.getState().setToken(data.token);
-        queryClient.invalidateQueries(); // invalidate user-related data if any
-      }
+      setToken(data.token);
     },
   });
 };
