@@ -96,7 +96,6 @@ const SignUpForm = () => {
   const [errors, setErrors] = useState<Partial<FormState>>({});
 
   const registerMutation = useRegister();
-  const setToken = useAuthStore((s) => s.setToken);
 
   const handleRegisterSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,13 +113,12 @@ const SignUpForm = () => {
       },
       {
         onSuccess: (data) => {
-          if (!data.token) {
-            console.warn("❗ Token hiányzik a válaszból.");
+          if (!data.status) {
+            console.warn("❗ Üzenet hiányzik a válaszból.");
             return;
           }
 
-          setToken(data.token);
-          console.debug("✅ Regisztráció sikeres, token mentve.");
+          console.debug(`✅ ${data.status}`);
         },
         onError: (error: AxiosError<AuthErrorResponse>) => {
           setErrors({

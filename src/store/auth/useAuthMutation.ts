@@ -2,13 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login, register } from "@/store/auth/auth.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
-import type { AuthErrorResponse, AuthSuccessResponse } from "./types";
+import type { AuthErrorResponse, LoginSuccessResponse, RegSuccessResponse } from "./types";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const setToken = useAuthStore.getState().setToken;
 
-  return useMutation<AuthSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+  return useMutation<LoginSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
     mutationFn: login,
     onSuccess: (data) => {
       setToken(data.token);
@@ -20,10 +20,10 @@ export const useLogin = () => {
 export const useRegister = () => {
   const setToken = useAuthStore.getState().setToken;
 
-  return useMutation<AuthSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+  return useMutation<RegSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
     mutationFn: register,
     onSuccess: (data) => {
-      setToken(data.token);
+      setToken(data.status);
     },
   });
 };

@@ -12,8 +12,11 @@ export type User = {
   exp: number;
 };
 
-export interface AuthSuccessResponse {
+export interface LoginSuccessResponse {
   token: string;
+};
+export interface RegSuccessResponse {
+  status: string;
 };
 
 export interface AuthErrorResponse {
