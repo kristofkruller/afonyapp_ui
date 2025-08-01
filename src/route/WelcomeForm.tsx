@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LoginForm, SignUpForm } from "@/components/Form";
 import { ActionBtn } from "@/components/assets/Button";
+import Logo from "@/components/assets/Logo";
 
 const WelcomeForm = () => {
   const [signUp, setSignUp] = useState(false);
@@ -8,6 +9,7 @@ const WelcomeForm = () => {
 
   return (
     <main className="main">
+      <Logo />
       {signUp ? <SignUpForm /> : <LoginForm />}
       <ActionBtn
         content={signUp ? "Vissza" : "Regisztráció"}
