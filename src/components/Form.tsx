@@ -10,6 +10,7 @@ import { useLogin, useRegister } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
 import type { AuthErrorResponse } from "@/store/auth/types";
+import Loading from "./assets/Loading";
 
 const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
@@ -137,36 +138,38 @@ const SignUpForm = () => {
     !form.cpassword;
 
   return (
-    <form onSubmit={handleRegisterSubmit} className="wrapper space-y-2">
-      <FormInput
-        name="email"
-        type="email"
-        value={form.email}
-        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-        placeholder="Email"
-      />
-      <InputError error={errors.email} />
+    registerMutation.isPending ?
+      <Loading /> :
+      <form onSubmit={handleRegisterSubmit} className="wrapper space-y-2">
+        <FormInput
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+          placeholder="Email"
+        />
+        <InputError error={errors.email} />
 
-      <FormInput
-        name="password"
-        type="password"
-        value={form.password}
-        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-        placeholder="Jelszó"
-      />
-      <InputError error={errors.password} />
+        <FormInput
+          name="password"
+          type="password"
+          value={form.password}
+          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+          placeholder="Jelszó"
+        />
+        <InputError error={errors.password} />
 
-      <FormInput
-        name="cpassword"
-        type="password"
-        value={form.cpassword}
-        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-        placeholder="Jelszó megerősítése"
-      />
-      <InputError error={errors.cpassword} />
+        <FormInput
+          name="cpassword"
+          type="password"
+          value={form.cpassword}
+          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+          placeholder="Jelszó megerősítése"
+        />
+        <InputError error={errors.cpassword} />
 
-      <ActionBtn type="submit" content="Regisztráció" disabled={isDisabled} />
-    </form>
+        <ActionBtn type="submit" content="Regisztráció" disabled={isDisabled} />
+      </form>
   );
 };
 
@@ -215,27 +218,29 @@ const LoginForm = () => {
     !form.password;
 
   return (
-    <form onSubmit={handleLoginSubmit} className="wrapper space-y-2">
-      <FormInput
-        name="email"
-        type="text"
-        value={form.email}
-        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-        placeholder="Email"
-      />
-      <InputError error={errors.email} />
+    loginMutation.isPending ?
+      <Loading /> :
+      <form onSubmit={handleLoginSubmit} className="wrapper space-y-2">
+        <FormInput
+          name="email"
+          type="text"
+          value={form.email}
+          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+          placeholder="Email"
+        />
+        <InputError error={errors.email} />
 
-      <FormInput
-        name="password"
-        type="password"
-        value={form.password}
-        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-        placeholder="Jelszó"
-      />
-      <InputError error={errors.password} />
+        <FormInput
+          name="password"
+          type="password"
+          value={form.password}
+          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+          placeholder="Jelszó"
+        />
+        <InputError error={errors.password} />
 
-      <ActionBtn type="submit" content="Bejelentkezés" disabled={isDisabled} />
-    </form>
+        <ActionBtn type="submit" content="Bejelentkezés" disabled={isDisabled} />
+      </form>
   );
 };
 

@@ -7,7 +7,7 @@ import AdminForm from "./route/AdminForm";
 import CostumerForm from "./route/CostumerForm";
 
 import RouteError from "./components/error/RouteError";
-import WrongUrl from "./components/error/WrongUrl";
+import FullPageFeedBack from "./components/assets/FullPageFeedBack";
 
 function App() {
   return (
@@ -16,7 +16,23 @@ function App() {
         <Route index element={<WelcomeForm />} />
         <Route path="admin" element={<AdminForm />} />
         <Route path="costumer" element={<CostumerForm />} />
-        <Route path="*" element={<WrongUrl />} />
+        <Route
+          path="activated"
+          element={
+            <FullPageFeedBack
+              content="Sikeres regisztráció, kérlek jelentkezz be"
+              btnContent="Vissza a bejelentkezéshez"
+            />
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <FullPageFeedBack
+              content="Ez az útvonal nem létezik"
+            />
+          }
+        />
       </Route>
     </Routes>
   );

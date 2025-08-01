@@ -16,7 +16,7 @@ const ActionBtn = ({ content, onClick, disabled }: BtnProp) => {
       onClick={onClick}
       disabled={disabled}
       className={
-        `actionBtn ${!disabled ? "hover:actionAnimOp cursor-pointer border-2" : ""} !px-5 !py-3 relative block focus:outline-none rounded-xl w-35 lg:w-40
+        `actionBtn ${!disabled ? "hover:actionAnimOp cursor-pointer border-2" : ""} !px-5 !py-3 relative block focus:outline-none rounded-xl min-w-35 lg:min-w-40
         lg:text-sm text-xs text-center text-white font-semibold uppercase tracking-widest font-bold
         ${colors.bool}`}
     >
