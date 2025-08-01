@@ -56,12 +56,25 @@ body,
   align-items: center;
 }
 body {
-  background: linear-gradient(-45deg, var(--y), var(--s), var(--p), var(--s));
-  background-size: 400% 400%;
-  animation: gradient 19s linear infinite;
+  background-color: var(--p); /* fallback */
+  background: linear-gradient(-45deg, var(--s), var(--y), var(--p), var(--y));
+  background-size: 300% 300%;
+  animation: gradientShift 15s ease infinite;
+  -webkit-animation: gradientShift 15s ease infinite;
 }
 
-@keyframes gradient {
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-webkit-keyframes gradientShift {
   0% {
     background-position: 0% 50%;
   }
