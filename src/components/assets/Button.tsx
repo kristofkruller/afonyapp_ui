@@ -1,4 +1,4 @@
-const ActionBtn = ({ content, onClick, disabled }: BtnProp) => {
+const ActionBtn = ({ content, onClick, disabled, type = 'button' }: BtnProp) => {
   const colors = {
     bool:
       disabled === true
@@ -12,7 +12,7 @@ const ActionBtn = ({ content, onClick, disabled }: BtnProp) => {
 
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={

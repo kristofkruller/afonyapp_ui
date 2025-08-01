@@ -183,6 +183,7 @@ const LoginForm = () => {
   const setToken = useAuthStore((s) => s.setToken);
 
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
+    // console.log(e)
     e.preventDefault();
     const validationErrors = validateLoginFields(form);
 
