@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { LoginSuccessResponse, RegSuccessResponse } from "./types";
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
+const BASE_URL = `${import.meta.env.VITE_PUBLIC_API_URL}/api/auth`;
 
 export const login = async (payload: {
   email: string;
