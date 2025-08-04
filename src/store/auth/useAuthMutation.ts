@@ -2,7 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login, register } from "@/store/auth/auth.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
-import type { AuthErrorResponse, LoginSuccessResponse, RegSuccessResponse } from "./types";
+import type { AuthErrorResponse, LoginSuccessResponse } from "./types";
+import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
@@ -18,12 +19,12 @@ export const useLogin = () => {
 };
 
 export const useRegister = () => {
-  const setToken = useAuthStore.getState().setToken;
+  const navigate = useNavigate();
 
-  return useMutation<RegSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+  return useMutation<void, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
     mutationFn: register,
-    onSuccess: (data) => {
-      setToken(data.status);
+    onSuccess: () => {
+      navigate('/registered');
     },
   });
 };

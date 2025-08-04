@@ -20,7 +20,16 @@ function App() {
           path="activated"
           element={
             <FullPageFeedBack
-              content="Sikeres regisztráció, kérlek jelentkezz be"
+              content="Sikeresen aktiváltad a regisztrációdat, kérlek jelentkezz be"
+              btnContent="Vissza a bejelentkezéshez"
+            />
+          }
+        />
+        <Route
+          path="registered"
+          element={
+            <FullPageFeedBack
+              content="Sikeres regisztráció, kérlek nézd meg az emailed"
               btnContent="Vissza a bejelentkezéshez"
             />
           }

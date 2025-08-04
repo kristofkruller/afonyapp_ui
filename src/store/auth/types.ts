@@ -15,9 +15,6 @@ export type User = {
 export interface LoginSuccessResponse {
   token: string;
 };
-export interface RegSuccessResponse {
-  status: string;
-};
 
 export interface AuthErrorResponse {
   message: string;
