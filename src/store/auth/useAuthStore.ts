@@ -11,8 +11,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (token) {
         const decoded: User = jwtDecode(token);
 
-        const nowInSec = Math.floor(Date.now() / 1000);
-        if (decoded.exp < nowInSec) {
+        if (decoded.exp < Math.floor(Date.now() / 1000)) {
           console.warn("Token expired on arrival");
           get().logout();
           return false;
@@ -28,7 +27,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         if (logoutTimer) clearTimeout(logoutTimer);
 
         // Calculate timeout duration in ms
-        const timeout = (decoded.exp - nowInSec) * 1000;
+        const timeout = (decoded.exp - Math.floor(Date.now() / 1000)) * 1000;
         logoutTimer = setTimeout(() => {
           console.info("Token expired, logging out automatically");
           get().logout();
@@ -49,6 +48,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   logout: () => {
     localStorage.removeItem("token");
     set({ token: null, user: null });
+  },
+
+  isTokenValid: () => {
+    const token = get().token;
+    if (!token) return false;
+    try {
+      const decoded: User = jwtDecode(token);
+      return decoded.exp > Math.floor(Date.now() / 1000);
+    } catch {
+      return false;
+    }
   },
 
   isAdmin: () => get().user?.type === "admin",

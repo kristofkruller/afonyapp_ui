@@ -3,11 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import WelcomeForm from "./route/WelcomeForm";
 
 import RouteLayout from "./route/RouteLayout";
-import AdminForm from "./route/AdminForm";
-import CostumerForm from "./route/CostumerForm";
+import AdminForm from "./components/AdminDash";
+import CostumerForm from "./components/CostumerDash";
 
 import RouteError from "./components/error/RouteError";
 import FullPageFeedBack from "./components/assets/FullPageFeedBack";
+import Dash from "./route/Dash";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             />
           }
         />
+        <Route path="dashboard" element={<Dash />} />
         <Route
           path="*"
           element={

@@ -24,9 +24,9 @@ type FormAction = {
   value: string;
 };
 type InputProps = {
-  name: Extract<keyof FormState, string>;
+  name: Extract<keyof FormState, string> | string;
   type?: string;
   value?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
+  placeholder?: string;
 };

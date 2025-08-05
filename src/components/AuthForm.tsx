@@ -1,5 +1,5 @@
-import { memo, useId, useReducer, useState, type FormEvent } from "react";
-import { ActionBtn } from "@/components/assets/Button";
+import { useReducer, useState, type FormEvent } from "react";
+import { ActionBtn, FormInput } from "@/components/assets/Button";
 import {
   mailRegex,
   strongPasswordRegex,
@@ -11,6 +11,7 @@ import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
 import type { AuthErrorResponse } from "@/store/auth/types";
 import Loading from "./assets/Loading";
+import { InputError } from "./error/DashError";
 
 const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
@@ -20,28 +21,6 @@ const formReducer = (state: FormState, action: FormAction) => {
       return state;
   }
 };
-
-// --- Input mező komponens (memozott!) ---
-const FormInput = memo(
-  ({ name, type = "text", value, onChange, placeholder }: InputProps) => {
-    const inputId = useId();
-
-    return (
-      <input
-        className="bg-white/20 !p-2 rounded-[10px]"
-        id={inputId}
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        required={true}
-        placeholder={placeholder}
-      />
-    );
-  }
-);
-
-FormInput.displayName = "FormInput"; // memóhoz
 
 type HandleFormChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -84,9 +63,6 @@ const handleFormChange: HandleFormChange = (e, dispatch, setErrors, form) => {
   });
 };
 
-const InputError = ({ error }: { error?: string }) =>
-  error ? <p className="err">{error}</p> : null;
-
 //SIGN UP
 const SignUpForm = () => {
   const [form, dispatch] = useReducer(formReducer, {
@@ -113,14 +89,7 @@ const SignUpForm = () => {
         password: form.password,
       },
       {
-        onSuccess: (data) => {
-          if (!data.status) {
-            console.warn("❗ Üzenet hiányzik a válaszból.");
-            return;
-          }
-
-          console.debug(`✅ ${data.status}`);
-        },
+        onSuccess: () => console.debug(`reg ✅`),
         onError: (error: AxiosError<AuthErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",

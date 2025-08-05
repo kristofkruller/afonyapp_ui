@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LoginForm, SignUpForm } from "@/components/Form";
+import { LoginForm, SignUpForm } from "@/components/AuthForm";
 import { ActionBtn } from "@/components/assets/Button";
 import Logo from "@/components/assets/Logo";
 
