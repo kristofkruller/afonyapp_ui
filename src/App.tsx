@@ -36,11 +36,21 @@ function App() {
           }
         />
         <Route path="dashboard" element={<Dash />} />
+        
         <Route
           path="*"
           element={
             <FullPageFeedBack
               content="Ez az útvonal nem létezik"
+            />
+          }
+        />
+        <Route
+          path="unauthorized"
+          element={
+            <FullPageFeedBack
+              content="Sajnos nem tudtunk azonosítani, kérlek jelentkezz be ismét"
+              btnContent="Vissza a bejelentkezéshez"
             />
           }
         />
