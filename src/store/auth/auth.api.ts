@@ -22,7 +22,7 @@ export const register = async (payload: {
 };
 
 export const updateUserNick = async (payload: {
-  nickname: string;
+  nick: string;
 }): Promise<AuthSuccessResponse> => {
   const res = await axios.put(`${BASE_URL}/me`, payload, {
     headers: {

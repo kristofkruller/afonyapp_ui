@@ -7,17 +7,20 @@ import { ActionBtn, FormInput } from "./assets/Button";
 import { InputError } from "./error/DashError";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 import type { AuthErrorResponse } from "@/store/auth/types";
+import { useNavigate } from "react-router-dom";
 
 const AskNick = () => {
+  const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
-  const [nickname, setNickname] = useState("");
-  const nicknameRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9]{3,24}$/;
+  const [nick, setNick] = useState("");
+  const nickRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9]{3,24}$/;
   const [error, setError] = useState("");
   const userNickMutation = useUpdateUserNick();
 
+
   const handleSubmit = async () => {
-    const trimmedNick = nickname.trim();
-    if (!trimmedNick || !nicknameRegex.test(trimmedNick)) {
+    const trimmedNick = nick.trim();
+    if (!trimmedNick || !nickRegex.test(trimmedNick)) {
       setError(
         "Minimum 3, maximum 24 karaktert adj meg becenévként, speciális karakter nélkül!"
       );
@@ -25,11 +28,11 @@ const AskNick = () => {
     }
     if (!user || !user.id) {
       setError("Hiba a felhasználó inicializálása közben");
-      return;
+      navigate('/unauthorized');
     }
     userNickMutation.mutate(
       {
-        nickname: trimmedNick
+        nick: trimmedNick
       },
       {
         onSuccess: () => console.debug(`nick ✅`),
@@ -43,14 +46,6 @@ const AskNick = () => {
         },
       }
     );
-    // try {
-    //   await axios.patch(`/api/users`, { nick: trimmedNick, id: user?.id });
-    //   setError("");
-    //   navigate('/dashboard');
-    // } catch (err) {
-    //   setError("Hiba történt a becenév frissítésekor");
-    //   console.error("Hiba a nick frissítésekor", err);
-    // }
   };
 
   return (
@@ -58,10 +53,10 @@ const AskNick = () => {
       <Logo />
       <Title content={"Kérlek add meg hogy szólíthatunk!"} />
       <FormInput
-        name="nickname"
+        name="nick"
         type="text"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
+        value={nick}
+        onChange={(e) => setNick(e.target.value)}
       />
       {error && <InputError error={error} />}
       <ActionBtn content={"Beállítás"} onClick={handleSubmit} />

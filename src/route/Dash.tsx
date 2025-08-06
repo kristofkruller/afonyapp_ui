@@ -8,24 +8,21 @@ const Dash = () => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
-  const isTokenValid = useAuthStore((state) => state.isTokenValid);
-  const isAdmin = useAuthStore((state) => state.isAdmin);
+  const isTokenValid = useAuthStore((s) => s.isTokenValid);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
-  if (!isTokenValid) {
+  if (!isTokenValid()) {
     logout();
     navigate('/');
     return;
   }
 
   if (!user?.nick || user.nick.trim() === "") {
+    console.warn(user);
     return <AskNick />;
   }
 
-  return(
-    <>
-      {isAdmin() ? (<AdminDash />) : (<CostumerDash />)}
-    </>
-  )
+  return isAdmin() ? <AdminDash /> : <CostumerDash />;
 }
 
 export default Dash

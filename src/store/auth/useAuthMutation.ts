@@ -10,12 +10,16 @@ export const useLogin = () => {
   const queryClient = useQueryClient();
   const setToken = useAuthStore.getState().setToken;
 
-  return useMutation<AuthSuccessResponse, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+  return useMutation<
+    AuthSuccessResponse,
+    AxiosError<AuthErrorResponse>,
+    { email: string; password: string }
+  >({
     mutationFn: login,
     onSuccess: (data) => {
       setToken(data.token);
       queryClient.invalidateQueries(); // invalidate user-related data if any
-      navigate('/dashboard')
+      navigate("/dashboard");
     },
   });
 };
@@ -23,10 +27,14 @@ export const useLogin = () => {
 export const useRegister = () => {
   const navigate = useNavigate();
 
-  return useMutation<void, AxiosError<AuthErrorResponse>, { email: string; password: string; }>({
+  return useMutation<
+    void,
+    AxiosError<AuthErrorResponse>,
+    { email: string; password: string }
+  >({
     mutationFn: register,
     onSuccess: () => {
-      navigate('/registered');
+      navigate("/registered");
     },
   });
 };
@@ -36,12 +44,16 @@ export const useUpdateUserNick = () => {
   const queryClient = useQueryClient();
   const setToken = useAuthStore.getState().setToken;
 
-  return useMutation<AuthSuccessResponse, AxiosError<AuthErrorResponse>, { nickname: string; }>({
+  return useMutation<
+    AuthSuccessResponse,
+    AxiosError<AuthErrorResponse>,
+    { nick: string }
+  >({
     mutationFn: updateUserNick,
     onSuccess: (data) => {
       setToken(data.token);
       queryClient.invalidateQueries(); // invalidate user-related data if any
-      navigate('/dashboard')
+      navigate("/dashboard");
     },
   });
 };
