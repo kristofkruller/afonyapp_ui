@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 import { ActionBtn, FormInput } from "./assets/Button";
 import { InputError } from "./error/DashError";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
-import type { AuthErrorResponse } from "@/store/auth/types";
+import type { ErrorResponse } from "@/store/auth/types";
 import { useNavigate } from "react-router-dom";
 
 const AskNick = () => {
@@ -36,7 +36,7 @@ const AskNick = () => {
       },
       {
         onSuccess: () => console.debug(`nick ✅`),
-        onError: (error: AxiosError<AuthErrorResponse>) => {
+        onError: (error: AxiosError<ErrorResponse>) => {
           const msg =
             error?.response?.data &&
             typeof error.response.data.message === "string"

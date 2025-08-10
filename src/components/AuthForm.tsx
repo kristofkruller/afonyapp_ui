@@ -9,7 +9,7 @@ import {
 import { useLogin, useRegister } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
-import type { AuthErrorResponse } from "@/store/auth/types";
+import type { ErrorResponse } from "@/store/auth/types";
 import Loading from "./assets/Loading";
 import { InputError } from "./error/DashError";
 
@@ -90,7 +90,7 @@ const SignUpForm = () => {
       },
       {
         onSuccess: () => console.debug(`reg ✅`),
-        onError: (error: AxiosError<AuthErrorResponse>) => {
+        onError: (error: AxiosError<ErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",
           });
@@ -172,7 +172,7 @@ const LoginForm = () => {
             setToken(data.token);
           }
         },
-        onError: (error: AxiosError<AuthErrorResponse>) => {
+        onError: (error: AxiosError<ErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",
           });

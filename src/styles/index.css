@@ -133,16 +133,16 @@ body {
     @apply w-10 h-10 fill-slate-600;
   }
   .main {
-    @apply gap-3 cursor-default flex flex-col items-center w-full sm:h-full justify-center w-full max-w-md mx-auto mt-12 p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg !pb-8;
+    @apply w-full max-w-md sm:h-full !pb-8 gap-3 cursor-default flex flex-col items-center justify-center mx-auto mt-12 p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
   }
   .wrapper {
-    @apply cursor-default flex flex-col items-center justify-around xl:w-1/2 lg:w-3/4 w-full mx-auto text-center h-full [&>*]:my-5 [&>*]:focus:outline-none;
+    @apply w-3/4 h-full cursor-default flex flex-col items-center justify-around mx-auto text-center [&>*]:focus:outline-none;
   }
   form.wrapper {
     @apply gap-3 w-full;
   }
   .err {
-    @apply text-fuchsia-800/70 text-xs w-full !px-4;
+    @apply w-full !px-4 text-fuchsia-800/70 text-xs;
   }
 }
 

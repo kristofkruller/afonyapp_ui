@@ -12,7 +12,7 @@ type Props = {
 
 const FullPageFeedBack = ({ content, btnContent = "Vissza a kezdőlapra", navigateTo = "/" }: Props) => {
   const navigate = useNavigate();
-  const [count, setCount] = useState(6);
+  const [count, setCount] = useState(10);
 
 
   useEffect(() => {

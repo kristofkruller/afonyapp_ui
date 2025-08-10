@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login, register, updateUserNick } from "@/store/auth/auth.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
-import type { AuthErrorResponse, AuthSuccessResponse } from "./types";
+import type { ErrorResponse, AuthSuccessResponse } from "./types";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
@@ -12,7 +12,7 @@ export const useLogin = () => {
 
   return useMutation<
     AuthSuccessResponse,
-    AxiosError<AuthErrorResponse>,
+    AxiosError<ErrorResponse>,
     { email: string; password: string }
   >({
     mutationFn: login,
@@ -29,7 +29,7 @@ export const useRegister = () => {
 
   return useMutation<
     void,
-    AxiosError<AuthErrorResponse>,
+    AxiosError<ErrorResponse>,
     { email: string; password: string }
   >({
     mutationFn: register,
@@ -46,7 +46,7 @@ export const useUpdateUserNick = () => {
 
   return useMutation<
     AuthSuccessResponse,
-    AxiosError<AuthErrorResponse>,
+    AxiosError<ErrorResponse>,
     { nick: string }
   >({
     mutationFn: updateUserNick,
