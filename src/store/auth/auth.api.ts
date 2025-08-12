@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { AuthSuccessResponse } from "./types";
+import { useAuthStore } from "./useAuthStore";
 
 const BASE_URL = `${import.meta.env.VITE_PUBLIC_API_URL}/api/auth`;
 
@@ -24,9 +25,11 @@ export const register = async (payload: {
 export const updateUserNick = async (payload: {
   nick: string;
 }): Promise<AuthSuccessResponse> => {
+  const token = useAuthStore.getState().token;
+
   const res = await axios.put(`${BASE_URL}/me`, payload, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   return res.data;

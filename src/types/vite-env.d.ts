@@ -1,5 +1,9 @@
 /// <reference types="vite/client" />
 
+interface ErrorResponse {
+  message: string;
+}
+
 // BTN
 type BtnProp = {
   content: string;

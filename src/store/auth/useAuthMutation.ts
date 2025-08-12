@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login, register, updateUserNick } from "@/store/auth/auth.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
-import type { ErrorResponse, AuthSuccessResponse } from "./types";
+import type { AuthSuccessResponse } from "./types";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {

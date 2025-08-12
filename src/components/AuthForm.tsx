@@ -9,7 +9,6 @@ import {
 import { useLogin, useRegister } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AxiosError } from "axios";
-import type { ErrorResponse } from "@/store/auth/types";
 import Loading from "./assets/Loading";
 import { InputError } from "./error/DashError";
 

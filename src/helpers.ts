@@ -1,7 +1,8 @@
-export const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+export const strongPasswordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
-// Kötelező @ karakter, Nem enged "üres" neveket vagy domaineket (@.com, @gmail, stb.), 
-// Nem enged érvénytelen karaktereket (.., @-, stb.), Elfogad pl. user.name+tag@gmail.com, 
+// Kötelező @ karakter, Nem enged "üres" neveket vagy domaineket (@.com, @gmail, stb.),
+// Nem enged érvénytelen karaktereket (.., @-, stb.), Elfogad pl. user.name+tag@gmail.com,
 // user@sub.domain.co, stb., Minimális hosszt és strukturáltságot elvár
 export const mailRegex = /^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -24,12 +25,22 @@ export const validateRegisterFields = (form: FormState) => {
 
   if (!form.password) errors.password = "Jelszó kötelező";
   else if (!strongPasswordRegex.test(form.password))
-    errors.password = "A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert";
+    errors.password =
+      "A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert";
 
   if (!form.cpassword) errors.cpassword = "Jelszó megerősítés kötelező";
-  else if (form.password !== form.cpassword) errors.cpassword = "A jelszavak nem egyeznek";
+  else if (form.password !== form.cpassword)
+    errors.cpassword = "A jelszavak nem egyeznek";
 
-  if (form.password === form.email) errors.password = "A jelszó nem egyezhet az email címmel";
+  if (form.password === form.email)
+    errors.password = "A jelszó nem egyezhet az email címmel";
 
   return errors;
+};
+
+export const formattedDate = (date: string) => {
+  return date.replace(
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}).*$/,
+    "$1.$2.$3 $4:$5"
+  );
 };

@@ -6,7 +6,6 @@ import { AxiosError } from "axios";
 import { ActionBtn, FormInput } from "./assets/Button";
 import { InputError } from "./error/DashError";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
-import type { ErrorResponse } from "@/store/auth/types";
 import { useNavigate } from "react-router-dom";
 
 const AskNick = () => {
