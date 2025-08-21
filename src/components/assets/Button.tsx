@@ -4,10 +4,10 @@ const ActionBtn = ({ content, onClick, disabled, type = 'button' }: BtnProp) => 
   const colors = {
     bool:
       disabled === true
-      ? "bg-indigo-400 opacity-50 text-indigo-700"
-      : content.toLowerCase().startsWith("reg")
-      ? "bg-indigo-800/70 hover:bg-indigo-400 hover:border-indigo-300 text-gray-200"
-      : "hover:bg-gray-200/60 border-indigo-700 text-indigo-700",
+      ? "bg-indigo-400 opacity-50 text-indigo-800"
+      : content.toLowerCase().startsWith("reg") || content.toLowerCase().startsWith("meger")
+      ? "bg-indigo-800 border-indigo-800 hover:bg-indigo-600 hover:border-indigo-600 text-gray-200"
+      : "bg-indigo-50 hover:bg-indigo-100/60 border-indigo-800 text-indigo-800",
   };
 
   return (
@@ -32,7 +32,7 @@ const FormInput = memo(
 
     return (
       <input
-        className="bg-white/30 !px-3 hover:!px-4 !py-1 rounded-3xl text-center text-indigo-900 !caret-indigo-500"
+        className="bg-white/30 !px-3 hover:!px-4 !py-1 rounded-3xl text-center text-indigo-950 !caret-indigo-600"
         id={inputId}
         name={name}
         type={type}

@@ -1,12 +1,11 @@
-// import React from 'react'
+import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import Logo from "@/components/assets/Logo";
 import { Title } from "@/components/assets/TextStlye";
 import { useOrdersStore } from "@/store/orders/useOrdersStore";
 import Loading from "@/components/assets/Loading";
-// import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { Orders } from "./Orders";
 
 const CostumerDash = () => {
