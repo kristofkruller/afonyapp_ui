@@ -1,9 +1,10 @@
+import type { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login, register, updateUserNick } from "@/store/auth/auth.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import type { AxiosError } from "axios";
 import type { AuthSuccessResponse } from "./types";
-import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const navigate = useNavigate();

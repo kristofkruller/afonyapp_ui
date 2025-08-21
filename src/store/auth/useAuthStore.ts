@@ -1,7 +1,8 @@
 import { create } from "zustand";
-import type { AuthState, User } from "./types";
 import { jwtDecode } from "jwt-decode";
 import { persist } from "zustand/middleware";
+
+import type { AuthState, User } from "./types";
 
 let logoutTimer: ReturnType<typeof setTimeout> | null = null;
 

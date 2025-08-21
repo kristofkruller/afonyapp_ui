@@ -1,12 +1,13 @@
-import { useAuthStore } from "@/store/auth/useAuthStore";
-import Logo from "./assets/Logo";
-import { Title } from "./assets/TextStlye";
 import { useState } from "react";
 import { AxiosError } from "axios";
-import { ActionBtn, FormInput } from "./assets/Button";
-import { InputError } from "./error/DashError";
-import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 import { useNavigate } from "react-router-dom";
+
+import { useAuthStore } from "@/store/auth/useAuthStore";
+import Logo from "@/components/assets/Logo";
+import { Title } from "@/components/assets/TextStlye";
+import { ActionBtn, FormInput } from "@/components/assets/Button";
+import { InputError } from "@/components/error/DashError";
+import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 
 const AskNick = () => {
   const navigate = useNavigate();

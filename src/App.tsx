@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import WelcomeForm from "./route/WelcomeForm";
 
 import RouteLayout from "./route/RouteLayout";
-import AdminForm from "./components/AdminDash";
-import CostumerForm from "./components/CostumerDash";
+import AdminForm from "./components/admin/AdminDash";
+import CostumerForm from "./components/costumer/CostumerDash";
 
 import RouteError from "./components/error/RouteError";
 import FullPageFeedBack from "./components/assets/FullPageFeedBack";

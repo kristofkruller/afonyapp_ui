@@ -1,5 +1,9 @@
 import { useReducer, useState, type FormEvent } from "react";
+import type { AxiosError } from "axios";
+
 import { ActionBtn, FormInput } from "@/components/assets/Button";
+import Loading from "@/components/assets/Loading";
+import { InputError } from "@/components/error/DashError";
 import {
   mailRegex,
   strongPasswordRegex,
@@ -8,9 +12,6 @@ import {
 } from "@/helpers";
 import { useLogin, useRegister } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import type { AxiosError } from "axios";
-import Loading from "./assets/Loading";
-import { InputError } from "./error/DashError";
 
 const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
