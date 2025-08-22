@@ -1,11 +1,14 @@
 import type { Order } from "@/store/orders/types";
 import { formattedDate } from "@/helpers";
 import { ActionBtn } from "../assets/Button";
+import { useUpdateOrderState } from "@/store/orders/useOrdersMutation";
 
 type OrdersProps = {
   orders: Order[];
 };
 export const Orders = ({ orders }: OrdersProps) => {
+  const updateOrder = useUpdateOrderState();
+
   return (
     <section className="flexCenterCol gap-4">
       {orders.map((order) => (
@@ -47,10 +50,26 @@ export const Orders = ({ orders }: OrdersProps) => {
           {/* RIGHT */}
           <div className="flexCenterCol gap-2">
             {order.status === "Értesített" && (
-              <ActionBtn content="Megerősítem" />
+              <ActionBtn
+                content="Megerősítem"
+                onClick={() =>
+                  updateOrder.mutate({
+                    id: order.id,
+                    status: "Megerősített",
+                  })
+                }
+              />
             )}
             {order.status !== "Lemondott" && order.status !== "Teljesített" ? (
-              <ActionBtn content="Lemondom" />
+              <ActionBtn
+                content="Lemondom"
+                onClick={() =>
+                  updateOrder.mutate({
+                    id: order.id,
+                    status: "Lemondott",
+                  })
+                }
+              />
             ) : (
               <div className="!px-6 !py-1 relative block min-w-35 lg:min-w-40"></div>
             )}
