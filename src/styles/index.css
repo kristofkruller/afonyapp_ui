@@ -122,7 +122,7 @@ body {
     @apply w-full !px-4 text-rose-500/70 text-xs font-bold;
   }
   .contentBox {
-    @apply flex !py-2 flex-col lg:flex-row justify-center items-center bg-[var(--lavender)] border-2 border-solid border-indigo-900 rounded-xl;
+    @apply flex !py-2 flex-col lg:flex-row justify-center items-center border-2 border-solid border-indigo-900 rounded-xl;
   }
   .boneFull {
     @apply w-screen h-full bg-[var(--white)];

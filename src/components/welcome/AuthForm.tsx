@@ -1,4 +1,4 @@
-import { useReducer, useState, type FormEvent } from "react";
+import { useEffect, useReducer, useState, type FormEvent } from "react";
 import type { AxiosError } from "axios";
 
 import { ActionBtn, FormInput } from "@/components/assets/Button";
@@ -12,6 +12,7 @@ import {
 } from "@/helpers";
 import { useLogin, useRegister } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
@@ -106,50 +107,55 @@ const SignUpForm = () => {
     !form.password ||
     !form.cpassword;
 
-  return (
-    registerMutation.isPending ?
-      <Loading /> :
-      <form onSubmit={handleRegisterSubmit} className="wrapper space-y-2">
-        <FormInput
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-          placeholder="Email"
-        />
-        <InputError error={errors.email} />
+  return registerMutation.isPending ? (
+    <Loading />
+  ) : (
+    <form onSubmit={handleRegisterSubmit} className="wrapper space-y-2">
+      <FormInput
+        name="email"
+        type="email"
+        value={form.email}
+        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+        placeholder="Email"
+      />
+      <InputError error={errors.email} />
 
-        <FormInput
-          name="password"
-          type="password"
-          value={form.password}
-          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-          placeholder="Jelszó"
-        />
-        <InputError error={errors.password} />
+      <FormInput
+        name="password"
+        type="password"
+        value={form.password}
+        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+        placeholder="Jelszó"
+      />
+      <InputError error={errors.password} />
 
-        <FormInput
-          name="cpassword"
-          type="password"
-          value={form.cpassword}
-          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-          placeholder="Jelszó megerősítése"
-        />
-        <InputError error={errors.cpassword} />
+      <FormInput
+        name="cpassword"
+        type="password"
+        value={form.cpassword}
+        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+        placeholder="Jelszó megerősítése"
+      />
+      <InputError error={errors.cpassword} />
 
-        <ActionBtn type="submit" content="Regisztráció" disabled={isDisabled} />
-      </form>
+      <ActionBtn type="submit" content="Regisztráció" disabled={isDisabled} />
+    </form>
   );
 };
 
 //LOG IN
-
 const LoginForm = () => {
   const [form, dispatch] = useReducer(formReducer, { email: "", password: "" });
   const [errors, setErrors] = useState<Partial<LoginFormState>>({});
 
   const loginMutation = useLogin();
   const setToken = useAuthStore((s) => s.setToken);
+  const isTokenValid = useAuthStore((s) => s.isTokenValid);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isTokenValid()) navigate("/dashboard");
+  }, [isTokenValid, navigate]);
 
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
     // console.log(e)
@@ -187,30 +193,50 @@ const LoginForm = () => {
     !form.email ||
     !form.password;
 
-  return (
-    loginMutation.isPending ?
-      <Loading /> :
-      <form onSubmit={handleLoginSubmit} className="wrapper space-y-2">
-        <FormInput
-          name="email"
-          type="text"
-          value={form.email}
-          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-          placeholder="Email"
-        />
-        <InputError error={errors.email} />
+  const [pending, setPending] = useState(false);
 
-        <FormInput
-          name="password"
-          type="password"
-          value={form.password}
-          onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
-          placeholder="Jelszó"
-        />
-        <InputError error={errors.password} />
+  useEffect(() => {
+    let tId: number;
 
-        <ActionBtn type="submit" content="Bejelentkezés" disabled={isDisabled} />
-      </form>
+    if (loginMutation.isPending) {
+      setPending(true);
+      tId = setTimeout(() => {
+        setPending(false);
+      }, 650);
+    } else {
+      // ha a mutation befejeződik mielőtt letelne a timeout
+      setPending(false);
+    }
+
+    return () => {
+      if (tId) clearTimeout(tId);
+    };
+  }, [loginMutation.isPending]);
+
+  return pending ? (
+    <Loading />
+  ) : (
+    <form onSubmit={handleLoginSubmit} className="wrapper space-y-2">
+      <FormInput
+        name="email"
+        type="text"
+        value={form.email}
+        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+        placeholder="Email"
+      />
+      <InputError error={errors.email} />
+
+      <FormInput
+        name="password"
+        type="password"
+        value={form.password}
+        onChange={(e) => handleFormChange(e, dispatch, setErrors, form)}
+        placeholder="Jelszó"
+      />
+      <InputError error={errors.password} />
+
+      <ActionBtn type="submit" content="Bejelentkezés" disabled={isDisabled} />
+    </form>
   );
 };
 
