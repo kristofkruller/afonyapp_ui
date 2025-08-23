@@ -9,8 +9,27 @@ import CostumerForm from "./components/costumer/CostumerDash";
 import RouteError from "./components/error/RouteError";
 import FullPageFeedBack from "./components/assets/FullPageFeedBack";
 import Dash from "./route/Dash";
+import { useEffect } from "react";
+import { useAuthStore } from "./store/auth/useAuthStore";
+import Profile from "./components/costumer/Profile";
 
 function App() {
+  const user = useAuthStore((s) => s.user);
+
+  useEffect(() => {
+    if (!user) {
+      document.body.classList.add("animate-bg");
+      document.body.classList.remove("white-bg");
+    } else {
+      document.body.classList.remove("animate-bg");
+      document.body.classList.add("white-bg");
+    }
+    return () => {
+      document.body.classList.remove("animate-bg");
+      document.body.classList.remove("white-bg");
+    };
+  }, [user]);
+
   return (
     <Routes>
       <Route element={<RouteLayout />} errorElement={<RouteError />}>
@@ -36,14 +55,11 @@ function App() {
           }
         />
         <Route path="dashboard" element={<Dash />} />
-        
+        <Route path="profile" element={<Profile />} />
+
         <Route
           path="*"
-          element={
-            <FullPageFeedBack
-              content="Ez az útvonal nem létezik"
-            />
-          }
+          element={<FullPageFeedBack content="Ez az útvonal nem létezik" />}
         />
         <Route
           path="unauthorized"
