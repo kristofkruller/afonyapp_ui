@@ -10,11 +10,9 @@ export interface Order {
 
 export interface OrdersSuccessResponse {
   orders: Order[];
+  token: string;
 }
 
-export interface OrdersState {
-  orders: Order[] | null;
-  loading: boolean;
-  error: string | null;
-  fetchOrders: () => Promise<void>;
+export interface OrderUpdateResponse {
+  message: string;
 }

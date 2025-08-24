@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { OrdersSuccessResponse } from "./types";
+import type { OrdersSuccessResponse, OrderUpdateResponse } from "./types";
 import { useAuthStore } from "../auth/useAuthStore";
 
 const BASE_URL = `${import.meta.env.VITE_PUBLIC_API_URL}/api`;
@@ -16,7 +16,7 @@ export const listOrdersByUser = async (): Promise<OrdersSuccessResponse> => {
   return res.data;
 };
 
-export const updateOrderState = async(id: number, status: string): Promise<OrdersSuccessResponse> => {
+export const updateOrderState = async(id: number, status: string): Promise<OrderUpdateResponse> => {
   const token = useAuthStore.getState().token;
 
   const res = await axios.put(`${BASE_URL}/orders/status`, {
@@ -27,6 +27,6 @@ export const updateOrderState = async(id: number, status: string): Promise<Order
       Authorization: `Bearer ${token}`,
     },
   });
-  if (!res.data || res.data.orders.length < 1) throw new Error("Nincs rendelésed")
-  return res.data;
+  if (!res.data || !res.data.message) throw new Error("Nem érkezett adat!")
+  return res.data?.message;
 }
