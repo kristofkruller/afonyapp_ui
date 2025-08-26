@@ -7,7 +7,7 @@ import AdminForm from "./components/admin/AdminDash";
 import CostumerForm from "./components/costumer/CostumerDash";
 
 import RouteError from "./components/error/RouteError";
-import FullPageFeedBack from "./components/assets/FullPageFeedBack";
+import FullPageFeedBack from "./route/FullPageFeedBack";
 import Dash from "./route/Dash";
 import { useEffect } from "react";
 import { useAuthStore } from "./store/auth/useAuthStore";

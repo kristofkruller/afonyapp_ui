@@ -7,10 +7,10 @@ const ActionBtn = ({
   type = "button",
 }: BtnProp) => {
   const isImportant = (content: string): boolean => {
-    const importantArr = ["regisztr", "megerősít", "áfonyát rendelek"];
+    const importantArr = ["regisztr", "megerősít", "rendel"];
     for (let index = 0; index < importantArr.length; index++) {
       const e = importantArr[index];
-      if (content.trim().toLowerCase().startsWith(e)) return true;
+      if (content.trim().toLowerCase().indexOf(e) > 0) return true;
     }
     return false;
   };
@@ -20,10 +20,9 @@ const ActionBtn = ({
       disabled === true
         ? "bg-indigo-400 opacity-50 text-indigo-800"
         : isImportant(content)
-        ? "bg-indigo-800 border-indigo-800 hover:bg-indigo-600 hover:border-indigo-600 text-gray-200"
+        ? "bg-indigo-800 border-indigo-800 hover:bg-indigo-600 hover:border-indigo-600 text-[var(--white)]"
         : "bg-indigo-50 hover:bg-indigo-100/60 border-indigo-800 text-indigo-800",
   };
-
   return (
     <button
       type={type}
@@ -32,7 +31,7 @@ const ActionBtn = ({
       className={`actionBtn ${
         !disabled ? "hover:actionAnimOp cursor-pointer border-2" : ""
       } !px-6 !py-1 relative block focus:outline-none rounded-3xl min-w-35 lg:min-w-40
-        lg:text-sm text-xs text-center font-bold uppercase tracking-widest
+        text-xs text-center font-bold uppercase tracking-widest
         ${colors.bool}`}
     >
       {content}

@@ -2,7 +2,7 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from "react-router-dom";
-import FullPageFeedBack from "../assets/FullPageFeedBack";
+import FullPageFeedBack from "@/route/FullPageFeedBack";
 
 const RouteError = () => {
   const error = useRouteError();

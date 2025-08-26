@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ActionBtn } from "@/components/assets/Button";
-import Logo from "./Logo";
-import { useEffect, useState } from "react";
-import { Title } from "./TextStlye";
+import Logo from "@/components/assets/Logo";
+import { Title } from "@/components/assets/TextStlye";
 
 type Props = {
   content: string;
