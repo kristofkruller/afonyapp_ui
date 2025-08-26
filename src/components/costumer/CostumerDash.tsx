@@ -17,7 +17,7 @@ const CostumerDash = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <section className="wrapper gap-2">
+        <section className="wrapper gap-2 [&>button]:text-base [&>button]:text-nowrap">
           <div
             id="logOut"
             className="fixed z-10 top-2 lg:top-5 right-5 max-w-10 scale-75 translate-x-[-175%] lg:translate-x-[-250%]"

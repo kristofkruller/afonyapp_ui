@@ -9,7 +9,7 @@ const Sign = ({ png = "" }: SignProp) => {
     <img
       src={`/${png}.png`}
       alt="alert icon"
-      className="max-w-50 transition-all"
+      className="max-w-30 transition-all"
     />
   );
 };

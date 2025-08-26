@@ -10,16 +10,17 @@ type OrdersProps = {
   orders: Order[];
 };
 export const Orders = ({ orders }: OrdersProps) => {
+  const id = useId();
   const updateOrder = useUpdateOrderState();
+
+  // POPUP
   const [popUpState, setPopUpState] = useState<PopUpProps>({
     title: "",
     content: "",
     btnContent: [],
     sign: "",
   });
-
   const { togglePopUp } = useUiStore();
-
   const lemondomPopUp = (order: Order) => {
     togglePopUp();
     setPopUpState({
@@ -29,11 +30,13 @@ export const Orders = ({ orders }: OrdersProps) => {
       btnContent: [
         {
           content: "LEMONDOM A RENDELÉST",
-          onClick: () =>
+          onClick: () => {
             updateOrder.mutate({
               id: order.id,
               status: "Lemondott",
-            }),
+            });
+            togglePopUp();
+          },
         },
         {
           content: "Vissza",
@@ -52,11 +55,13 @@ export const Orders = ({ orders }: OrdersProps) => {
       btnContent: [
         {
           content: "MEGERŐSÍTEM A RENDELÉST",
-          onClick: () =>
+          onClick: () => {
             updateOrder.mutate({
               id: order.id,
               status: "Megerősített",
-            }),
+            });
+            togglePopUp();
+          },
         },
         {
           content: "Vissza",
@@ -66,7 +71,14 @@ export const Orders = ({ orders }: OrdersProps) => {
       sign: "happyAf",
     });
   };
-  const id = useId();
+
+  // INFO
+  const beErkezettInfo = `Amint rendelkezésünkre áll a megfelelő mennyiségű friss termés, keresni fogunk.`;
+  const ertesitettInfo = `A rendelt mennyiség elérhető, kérlek jelezz vissza, hogy igényt tartasz az áfonyára. 
+    Kérdés esetén vedd fel velünk a kapcsolatot telefonon 06301234567`;
+  const megErositettInfo = `Köszönjük, hogy megerősítetted a rendelésed. 
+    Hamarosan keresni fogunk a kiszállítás várható idejével kapcsolatban.`;
+
   return (
     <section className="flexCenterCol gap-4">
       <PopUp
@@ -78,7 +90,8 @@ export const Orders = ({ orders }: OrdersProps) => {
       {orders.map((order, i) => (
         <div
           key={id + i}
-          className={`contentBox [&>*]:!px-2
+          className={`border-2 border-solid border-indigo-800 rounded-xl [&>*]:!px-2
+            max-w-fit
           ${
             order.status !== "Lemondott" && order.status !== "Teljesített"
               ? `bg-[var(--lavender)]`
@@ -87,47 +100,65 @@ export const Orders = ({ orders }: OrdersProps) => {
               : `bg-[var(--white)]`
           }`}
         >
-          {/* LEFT */}
-          <img
-            src={
-              order.status === "Teljesített"
-                ? "succAf.png"
-                : order.status === "Lemondott"
-                ? "cancelledAf.png"
-                : "happyAf.png"
-            }
-            alt="Status Icon"
-            className="max-w-30 transition-all"
-          />
-          {/* CENTER */}
-          <div className="gap-1 lg:[&>*]:text-start [&>*]:text-indigo-800 text-nowrap text-xs lg:text-base !m-4 !my-2 lg:!m-0">
-            <h2 className="font-bold">{`#${order.id}`}</h2>
-            <p>{`${order.amount} kg Áfonya`}</p>
-            <p>{order.deliverytype}</p>
-            <p>{`Rendelés leadva: ${formattedDate(order.cdate)}`}</p>
-            <p>
-              Rendelés státusza:{" "}
-              <span className="font-bold">{order.status}</span>
+          <div className="contentBox md:min-w-xl">
+            {/* LEFT */}
+            <img
+              src={
+                order.status === "Teljesített"
+                  ? "succAf.png"
+                  : order.status === "Lemondott"
+                  ? "cancelledAf.png"
+                  : "happyAf.png"
+              }
+              alt="Status Icon"
+              className="max-w-30 transition-all"
+            />
+            {/* CENTER */}
+            <div className="gap-1 md:[&>*]:text-start [&>*]:text-indigo-800 text-nowrap text-xs md:text-base md:!m-0 min-w-max">
+              <h2 className="font-bold">{`#${order.id}`}</h2>
+              <p>{`${order.amount} kg Áfonya`}</p>
+              <p>{order.deliverytype}</p>
+              <p>{`Rendelés leadva: ${formattedDate(order.cdate)}`}</p>
+              <p>
+                Rendelés státusza:{" "}
+                <span className="font-bold">{order.status}</span>
+              </p>
+              <h1 className="font-bold text-base lg:text-xl">{`${order.cost} Ft`}</h1>
+            </div>
+            {/* RIGHT */}
+            <div className="flexCenterCol gap-2">
+              {order.status === "Értesített" && (
+                <ActionBtn
+                  content="Megerősítem"
+                  onClick={() => megerositemPopUp(order)}
+                />
+              )}
+              {order.status !== "Lemondott" &&
+              order.status !== "Teljesített" ? (
+                <ActionBtn
+                  content="Lemondom"
+                  onClick={() => lemondomPopUp(order)}
+                />
+              ) : (
+                <div className="!px-6 !py-1 relative block min-w-35 lg:min-w-40"></div>
+              )}
+            </div>
+          </div>
+          {order.status === "Beérkezett" ? (
+            <p className="text-xs text-start italic opacity-70 !pb-2">
+              {beErkezettInfo}
             </p>
-            <h1 className="font-bold text-base lg:text-xl">{`${order.cost} Ft`}</h1>
-          </div>
-          {/* RIGHT */}
-          <div className="flexCenterCol gap-2">
-            {order.status === "Értesített" && (
-              <ActionBtn
-                content="Megerősítem"
-                onClick={() => megerositemPopUp(order)}
-              />
-            )}
-            {order.status !== "Lemondott" && order.status !== "Teljesített" ? (
-              <ActionBtn
-                content="Lemondom"
-                onClick={() => lemondomPopUp(order)}
-              />
-            ) : (
-              <div className="!px-6 !py-1 relative block min-w-35 lg:min-w-40"></div>
-            )}
-          </div>
+          ) : order.status === "Értesített" ? (
+            <p className="text-xs text-start italic opacity-70 !pb-2">
+              {ertesitettInfo}
+            </p>
+          ) : order.status === "Megerősített" ? (
+            <p className="text-xs text-start italic opacity-70 !pb-2">
+              {megErositettInfo}
+            </p>
+          ) : (
+            <></>
+          )}
         </div>
       ))}
     </section>

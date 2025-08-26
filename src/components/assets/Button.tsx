@@ -10,7 +10,7 @@ const ActionBtn = ({
     const importantArr = ["regisztr", "megerősít", "rendel"];
     for (let index = 0; index < importantArr.length; index++) {
       const e = importantArr[index];
-      if (content.trim().toLowerCase().indexOf(e) > 0) return true;
+      if (content.trim().toLowerCase().indexOf(e) > -1) return true;
     }
     return false;
   };
@@ -30,7 +30,7 @@ const ActionBtn = ({
       disabled={disabled}
       className={`actionBtn ${
         !disabled ? "hover:actionAnimOp cursor-pointer border-2" : ""
-      } !px-6 !py-1 relative block focus:outline-none rounded-3xl min-w-35 lg:min-w-40
+      } !p-3 relative block focus:outline-none rounded-3xl min-w-min
         text-xs text-center font-bold uppercase tracking-widest
         ${colors.bool}`}
     >
