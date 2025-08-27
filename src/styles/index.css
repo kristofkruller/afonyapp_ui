@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playwrite+HU:wght@100..400&display=swap');
 @import "tailwindcss";
 
 /*RESET n BASICS*/
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -97,12 +98,16 @@ body.white-bg {
 @tailwind utilities;
 
 @theme {
+  --font-inter: "Inter", sans-serif;
+  --font-hun: "Playwrite HU", cursive;
   --color-indigo-200: oklch(0.835 0.072 292.95);
   --color-indigo-400: oklch(0.678 0.106 292.95);
   --color-indigo-600: oklch(0.503 0.124 292.95);
   --color-indigo-800: oklch(0.402 0.099 292.95); /*figma #4B3C78*/
   --color-indigo-900: oklch(0.328 0.082 292.95);
   --color-indigo-950: oklch(0.208 0.065 292.95);
+  --breakpoint-xs: 20rem;
+  --breakpoint-s: 30rem;
 }
 /* Optional reset for forms/buttons */
 @layer components {
@@ -113,10 +118,10 @@ body.white-bg {
     @apply w-10 h-10 fill-slate-600;
   }
   .main {
-    @apply w-full max-w-md sm:h-full !pb-8 gap-3 cursor-default flex flex-col items-center justify-center mx-auto mt-12 p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+    @apply min-w-screen min-h-screen xs:min-w-auto xs:min-h-auto !p-8 !pt-4 gap-3 cursor-default rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
   }
   .wrapper {
-    @apply w-3/4 h-full cursor-default flex flex-col items-center justify-around mx-auto text-center [&>*]:focus:outline-none [&>*]:text-indigo-800;
+    @apply w-3/4 h-full cursor-default flex flex-col items-center justify-around !mx-auto text-center [&>*]:focus:outline-none [&>*]:text-indigo-800;
   }
   form.wrapper {
     @apply gap-3 w-full;
@@ -125,7 +130,7 @@ body.white-bg {
     @apply w-full !px-4 text-rose-500/70 text-xs font-bold;
   }
   .contentBox {
-    @apply flex !py-2 flex-col md:flex-row justify-around items-center;
+    @apply flex flex-col md:flex-row !py-2 justify-around items-center gap-2 md:gap-0;
   }
 }
 

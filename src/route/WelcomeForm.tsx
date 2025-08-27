@@ -9,7 +9,7 @@ const WelcomeForm = () => {
   const handleSignUp = () => setSignUp(!signUp);
 
   return (
-    <main className="main">
+    <main className="main flexCenterCol">
       <Logo />
       {signUp ? <SignUpForm /> : <LoginForm />}
       <ActionBtn

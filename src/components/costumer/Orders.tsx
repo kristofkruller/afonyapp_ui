@@ -68,7 +68,7 @@ export const Orders = ({ orders }: OrdersProps) => {
           onClick: () => togglePopUp(),
         },
       ],
-      sign: "happyAf",
+      sign: "succAf",
     });
   };
 
@@ -91,7 +91,7 @@ export const Orders = ({ orders }: OrdersProps) => {
         <div
           key={id + i}
           className={`border-2 border-solid border-indigo-800 rounded-xl [&>*]:!px-2
-            max-w-fit
+            max-w-100 md:max-w-fit
           ${
             order.status !== "Lemondott" && order.status !== "Teljesített"
               ? `bg-[var(--lavender)]`
@@ -105,7 +105,7 @@ export const Orders = ({ orders }: OrdersProps) => {
             <img
               src={
                 order.status === "Teljesített"
-                  ? "succAf.png"
+                  ? "laughingAf.png"
                   : order.status === "Lemondott"
                   ? "cancelledAf.png"
                   : "happyAf.png"
@@ -145,15 +145,15 @@ export const Orders = ({ orders }: OrdersProps) => {
             </div>
           </div>
           {order.status === "Beérkezett" ? (
-            <p className="text-xs text-start italic opacity-70 !pb-2">
+            <p className="font-hun text-xs text-start italic opacity-70 !pb-2">
               {beErkezettInfo}
             </p>
           ) : order.status === "Értesített" ? (
-            <p className="text-xs text-start italic opacity-70 !pb-2">
+            <p className="font-hun text-xs text-start italic opacity-70 !pb-2">
               {ertesitettInfo}
             </p>
           ) : order.status === "Megerősített" ? (
-            <p className="text-xs text-start italic opacity-70 !pb-2">
+            <p className="font-hun text-xs text-start italic opacity-70 !pb-2">
               {megErositettInfo}
             </p>
           ) : (

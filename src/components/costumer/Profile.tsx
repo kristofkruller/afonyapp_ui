@@ -14,11 +14,12 @@ const Profile = () => {
   }, [token, user, navigate]);
 
   return (
-    <section className="wrapper gap-2">
+    <main className="wrapper gap-2">
+      
       <Logo />
       <Title content={"Profil szerkeztése"} dark={true} />
-      <div className="flex flex-row justify-center">
-        <h1 className="whitespace-nowrap !p-2">E-mail:</h1>
+      <div className="flex [&>input]:text-start">
+        <label className="whitespace-nowrap !p-2">E-mail:</label>
         <FormInput
           name="email"
           placeholder={user?.email}
@@ -26,8 +27,8 @@ const Profile = () => {
           onChange={(e) => e.preventDefault()}
         />
       </div>
-      <div className="flex flex-row">
-        <h1 className="whitespace-nowrap !p-2">Megjelenített név:</h1>
+      <div className="flex [&>input]:text-start">
+        <label className="whitespace-nowrap !p-2">Jelszó:</label>
         <FormInput
           name="nick"
           placeholder={user?.nick}
@@ -35,11 +36,10 @@ const Profile = () => {
           onChange={(e) => e.preventDefault()}
         />
       </div>
-      <ActionBtn content="Jelszócsere" />
-      <ActionBtn content="Név módosítása" />
-      <ActionBtn content="Profil törlése" />
-      <ActionBtn content="Vissza" />
-    </section>
+      <div className="flex gap-2 w-full justify-between"><ActionBtn content="Jelszócsere" /><ActionBtn content="Név módosítása" /></div>
+      <div className="flex gap-2 w-full justify-between"><ActionBtn content="Profil törlése" /><ActionBtn content="Vissza" /></div>
+      
+    </main>
   );
 };
 
