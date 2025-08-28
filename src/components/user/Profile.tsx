@@ -1,14 +1,15 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { AxiosError } from "axios";
+
 import { Title } from "../assets/TextStlye";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import { useEffect, useState } from "react";
 import { ActionBtn, FormInput } from "../assets/Button";
 import Logo from "../assets/Logo";
 import PopUp, { type PopUpProps } from "../assets/PopUp";
 import { useUiStore } from "@/store/ui/useUiStore";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 import { nickRegex } from "../welcome/AskNick";
-import type { AxiosError } from "axios";
 import { InputError } from "../error/DashError";
 
 const Profile = () => {
@@ -115,7 +116,11 @@ const Profile = () => {
             onChange={(e) => setNick(e.target.value)}
           />
         </div>
-        {error && <div className="text-center"><InputError error={error} /></div>}
+        {error && (
+          <div className="text-center">
+            <InputError error={error} />
+          </div>
+        )}
         <div
           className="max-w-full flex flex-wrap s:flex-row gap-2 justify-center s:justify-around
         [&>button]:text-nowrap [&>button]:w-20 s:[&>button]:w-40 [&>button:last-of-type]:bg-rose-800

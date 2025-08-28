@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import AdminDash from "@/components/admin/AdminDash";
+import AdminDash from "@/components/user/admin/AdminDash";
 import AskNick from "@/components/welcome/AskNick";
-import CostumerDash from "@/components/costumer/CostumerDash";
+import CostumerDash from "@/components/user/costumer/CostumerDash";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 
 const Dash = () => {

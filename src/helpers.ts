@@ -44,3 +44,5 @@ export const formattedDate = (date: string) => {
     "$1.$2.$3 $4:$5"
   );
 };
+
+export const nickRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9]{3,24}$/;

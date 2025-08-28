@@ -8,7 +8,7 @@ import WelcomeForm from "./route/WelcomeForm";
 import RouteLayout from "./route/RouteLayout";
 import RouteError from "./components/error/RouteError";
 import FullPageFeedBack from "./route/FullPageFeedBack";
-import Profile from "./components/costumer/Profile";
+import Profile from "./components/user/Profile";
 
 function App() {
   const user = useAuthStore((s) => s.user);

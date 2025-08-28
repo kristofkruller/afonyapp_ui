@@ -8,8 +8,7 @@ import { Title } from "@/components/assets/TextStlye";
 import { ActionBtn, FormInput } from "@/components/assets/Button";
 import { InputError } from "@/components/error/DashError";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
-
-export const nickRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9]{3,24}$/;
+import { nickRegex } from "@/helpers";
 
 const AskNick = () => {
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ const AskNick = () => {
   const [nick, setNick] = useState("");
   const [error, setError] = useState("");
   const userNickMutation = useUpdateUserNick();
-
 
   const handleSubmit = async () => {
     const trimmedNick = nick.trim();
@@ -30,11 +28,11 @@ const AskNick = () => {
     if (!user || !user.id) {
       setNick("");
       setError(""); // Hiba a felhasználó inicializálása közben
-      navigate('/unauthorized');
+      navigate("/unauthorized");
     }
     userNickMutation.mutate(
       {
-        nick: trimmedNick
+        nick: trimmedNick,
       },
       {
         onSuccess: () => console.debug(`nick ✅`),
