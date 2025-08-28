@@ -7,7 +7,7 @@ const ActionBtn = ({
   type = "button",
 }: BtnProp) => {
   const isImportant = (content: string): boolean => {
-    const importantArr = ["regisztr", "megerősít", "rendel"];
+    const importantArr = ["regisztr", "megerősít", "rendel", "módosít", "csere"];
     for (let index = 0; index < importantArr.length; index++) {
       const e = importantArr[index];
       if (content.trim().toLowerCase().indexOf(e) > -1) return true;

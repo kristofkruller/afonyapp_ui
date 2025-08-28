@@ -22,11 +22,10 @@ type LoginFormState = {
   email: string;
   password: string;
 };
-type FormAction = {
-  type: "SUBMIT";
-  field: keyof FormState;
-  value: string;
-};
+type FormAction =
+  | { type: "SUBMIT"; field: keyof FormState; value: string }
+  | { type: "RESET"; payload: FormState };
+
 type InputProps = {
   name: Extract<keyof FormState, string> | string;
   type?: string;

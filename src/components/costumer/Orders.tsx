@@ -40,7 +40,10 @@ export const Orders = ({ orders }: OrdersProps) => {
         },
         {
           content: "Vissza",
-          onClick: () => togglePopUp(),
+          onClick: () => {
+            setPopUpState({ title: "", content: "", btnContent: [], sign: "" });
+            togglePopUp();
+          },
         },
       ],
       sign: "cancelledAf",
@@ -65,7 +68,10 @@ export const Orders = ({ orders }: OrdersProps) => {
         },
         {
           content: "Vissza",
-          onClick: () => togglePopUp(),
+          onClick: () => {
+            setPopUpState({ title: "", content: "", btnContent: [], sign: "" });
+            togglePopUp();
+          },
         },
       ],
       sign: "succAf",

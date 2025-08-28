@@ -118,7 +118,7 @@ body.white-bg {
     @apply w-10 h-10 fill-slate-600;
   }
   .main {
-    @apply min-w-screen min-h-screen xs:min-w-auto xs:min-h-auto !p-8 !pt-4 gap-3 cursor-default rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+    @apply min-w-screen min-h-screen s:min-w-auto s:min-h-auto s:!p-8 s:!pt-4 gap-3 cursor-default rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
   }
   .wrapper {
     @apply w-3/4 h-full cursor-default flex flex-col items-center justify-around !mx-auto text-center [&>*]:focus:outline-none [&>*]:text-indigo-800;
@@ -131,6 +131,9 @@ body.white-bg {
   }
   .contentBox {
     @apply flex flex-col md:flex-row !py-2 justify-around items-center gap-2 md:gap-0;
+  }
+  .logOut {
+    @apply fixed z-10 top-0 s:top-2 lg:top-5 right-5 max-w-10 scale-75;
   }
 }
 

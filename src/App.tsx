@@ -1,16 +1,13 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 
+import { useAuthStore } from "./store/auth/useAuthStore";
+
+import Dash from "./route/Dash";
 import WelcomeForm from "./route/WelcomeForm";
-
 import RouteLayout from "./route/RouteLayout";
-import AdminForm from "./components/admin/AdminDash";
-import CostumerForm from "./components/costumer/CostumerDash";
-
 import RouteError from "./components/error/RouteError";
 import FullPageFeedBack from "./route/FullPageFeedBack";
-import Dash from "./route/Dash";
-import { useEffect } from "react";
-import { useAuthStore } from "./store/auth/useAuthStore";
 import Profile from "./components/costumer/Profile";
 
 function App() {
@@ -34,8 +31,6 @@ function App() {
     <Routes>
       <Route element={<RouteLayout />} errorElement={<RouteError />}>
         <Route index element={<WelcomeForm />} />
-        <Route path="admin" element={<AdminForm />} />
-        <Route path="costumer" element={<CostumerForm />} />
         <Route
           path="activated"
           element={

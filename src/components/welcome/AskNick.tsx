@@ -9,11 +9,12 @@ import { ActionBtn, FormInput } from "@/components/assets/Button";
 import { InputError } from "@/components/error/DashError";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 
+export const nickRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9]{3,24}$/;
+
 const AskNick = () => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const [nick, setNick] = useState("");
-  const nickRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9]{3,24}$/;
   const [error, setError] = useState("");
   const userNickMutation = useUpdateUserNick();
 
@@ -27,7 +28,8 @@ const AskNick = () => {
       return;
     }
     if (!user || !user.id) {
-      setError("Hiba a felhasználó inicializálása közben");
+      setNick("");
+      setError(""); // Hiba a felhasználó inicializálása közben
       navigate('/unauthorized');
     }
     userNickMutation.mutate(

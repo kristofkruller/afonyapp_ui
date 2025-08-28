@@ -18,6 +18,8 @@ const formReducer = (state: FormState, action: FormAction) => {
   switch (action.type) {
     case "SUBMIT":
       return { ...state, [action.field]: action.value };
+    case "RESET":
+      return action.payload; // payload = initial state
     default:
       return state;
   }
@@ -66,11 +68,12 @@ const handleFormChange: HandleFormChange = (e, dispatch, setErrors, form) => {
 
 //SIGN UP
 const SignUpForm = () => {
-  const [form, dispatch] = useReducer(formReducer, {
+  const initialForm: FormState = {
     email: "",
     password: "",
     cpassword: "",
-  });
+  };
+  const [form, dispatch] = useReducer(formReducer, initialForm);
   const [errors, setErrors] = useState<Partial<FormState>>({});
 
   const registerMutation = useRegister();
@@ -90,11 +93,15 @@ const SignUpForm = () => {
         password: form.password,
       },
       {
-        onSuccess: () => console.debug(`reg ✅`),
+        onSuccess: () => {
+          console.debug(`reg ✅`);
+          dispatch({ type: "RESET", payload: initialForm });
+        },
         onError: (error: AxiosError<ErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",
           });
+          dispatch({ type: "RESET", payload: initialForm });
         },
       }
     );
@@ -145,7 +152,11 @@ const SignUpForm = () => {
 
 //LOG IN
 const LoginForm = () => {
-  const [form, dispatch] = useReducer(formReducer, { email: "", password: "" });
+  const initialForm: LoginFormState = {
+    email: "",
+    password: "",
+  };
+  const [form, dispatch] = useReducer(formReducer, initialForm);
   const [errors, setErrors] = useState<Partial<LoginFormState>>({});
 
   const loginMutation = useLogin();
@@ -176,12 +187,14 @@ const LoginForm = () => {
         onSuccess: (data) => {
           if (data?.token) {
             setToken(data.token);
+            dispatch({ type: "RESET", payload: initialForm });
           }
         },
         onError: (error: AxiosError<ErrorResponse>) => {
           setErrors({
             email: error?.response?.data?.message || "Ismeretlen hiba",
           });
+          dispatch({ type: "RESET", payload: initialForm });
         },
       }
     );
