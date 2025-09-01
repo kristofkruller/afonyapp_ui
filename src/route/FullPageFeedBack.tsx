@@ -8,16 +8,21 @@ type Props = {
   content: string;
   btnContent?: string;
   navigateTo?: string;
-}
+  dark?: boolean;
+};
 
-const FullPageFeedBack = ({ content, btnContent = "Vissza a kezdőlapra", navigateTo = "/" }: Props) => {
+const FullPageFeedBack = ({
+  content,
+  btnContent = "Vissza a kezdőlapra",
+  navigateTo = "/",
+  dark = false,
+}: Props) => {
   const navigate = useNavigate();
   const [count, setCount] = useState(10);
 
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setCount(prev => prev - 1);
+      setCount((prev) => prev - 1);
     }, 1000);
     const timer = setTimeout(() => {
       navigate(navigateTo);
@@ -26,20 +31,19 @@ const FullPageFeedBack = ({ content, btnContent = "Vissza a kezdőlapra", naviga
     return () => {
       clearInterval(interval);
       clearTimeout(timer);
-    }
-  }, [navigate, navigateTo])
-  
+    };
+  }, [navigate, navigateTo]);
 
   return (
-    <section className="main">
-    <Logo />
-    <div className="wrapper text-slate-400 uppercase">
-      <Title content={content} />
-      <p className="text-sm text-center text-slate-300 !my-4">
-        Átirányítás {count} másodperc múlva...
-      </p>
-      <ActionBtn content={btnContent} onClick={() => navigate(navigateTo)} />
-    </div>
+    <section className="main flexCenterCol">
+      <Logo />
+      <div className="wrapper text-slate-400 uppercase">
+        <Title content={content} dark={dark} />
+        <p className="text-sm text-center text-slate-300 !my-4">
+          Átirányítás {count} másodperc múlva...
+        </p>
+        <ActionBtn content={btnContent} onClick={() => navigate(navigateTo)} />
+      </div>
     </section>
   );
 };

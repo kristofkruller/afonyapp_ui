@@ -1,9 +1,9 @@
 import type { Order } from "@/store/orders/types";
 import { formattedDate } from "@/helpers";
-import { ActionBtn } from "../assets/Button";
+import { ActionBtn } from "@/components/assets/Button";
 import { useUpdateOrderState } from "@/store/orders/useOrdersMutation";
 import { useUiStore } from "@/store/ui/useUiStore";
-import PopUp, { type PopUpProps } from "../assets/PopUp";
+import PopUp, { type PopUpProps } from "@/components/assets/PopUp";
 import { useId, useState } from "react";
 
 type OrdersProps = {

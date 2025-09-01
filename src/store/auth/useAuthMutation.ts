@@ -2,14 +2,19 @@ import type { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { login, register, updateUserNick } from "@/store/auth/auth.api";
+import {
+  login,
+  register,
+  updateUserNick,
+  updateUserPassWord,
+} from "@/store/auth/auth.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { AuthSuccessResponse } from "./types";
 
 export const useLogin = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const setToken = useAuthStore.getState().setToken;
+  const { setToken } = useAuthStore();
 
   return useMutation<
     AuthSuccessResponse,
@@ -43,7 +48,7 @@ export const useRegister = () => {
 export const useUpdateUserNick = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const setToken = useAuthStore.getState().setToken;
+  const { setToken } = useAuthStore();
 
   return useMutation<
     AuthSuccessResponse,
@@ -55,6 +60,20 @@ export const useUpdateUserNick = () => {
       setToken(data.token);
       queryClient.invalidateQueries(); // invalidate user-related data if any
       navigate("/dashboard");
+    },
+  });
+};
+
+export const useUpdateUserPassWord = () => {
+  const navigate = useNavigate();
+  return useMutation<
+    void,
+    AxiosError<ErrorResponse>,
+    { originalPassWord: string; newPassWord: string }
+  >({
+    mutationFn: updateUserPassWord,
+    onSuccess: () => {
+      navigate("/pass"); // egyből oda dob, mielőtt a logout feldolgozódik
     },
   });
 };

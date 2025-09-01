@@ -1,12 +1,12 @@
 import { useReducer, useState, type FormEvent } from "react";
 import type { AxiosError } from "axios";
 
-import { formReducer, handleFormChange } from "./AuthForm";
+import { formReducer, handleFormChange } from "./authForm";
 import { useRegister } from "@/store/auth/useAuthMutation";
 import { validateRegisterFields } from "@/helpers";
-import { ActionBtn, FormInput } from "../assets/Button";
-import Loading from "../assets/Loading";
-import { InputError } from "../error/DashError";
+import { ActionBtn, FormInput } from "@/components/assets/Button";
+import Loading from "@/components/assets/Loading";
+import { InputError } from "@/components/error/DashError";
 
 const SignUpForm = () => {
   const initialForm: FormState = {

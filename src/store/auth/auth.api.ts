@@ -17,7 +17,8 @@ export const register = async (payload: {
   email: string;
   password: string;
   // cpassword: string; // a backendnek nem kell confirm password.
-}): Promise<void> => { // void - 2xx status -> onSuccess
+}): Promise<void> => {
+  // void - 2xx status -> onSuccess
   await axios.post(`${BASE_URL}/register`, payload, {
     withCredentials: true,
   });
@@ -34,4 +35,17 @@ export const updateUserNick = async (payload: {
     },
   });
   return res.data;
+};
+
+export const updateUserPassWord = async (payload: {
+  originalPassWord: string;
+  newPassWord: string;
+}): Promise<void> => {
+  const token = useAuthStore.getState().token;
+
+  await axios.put(`${BASE_URL}/pass`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

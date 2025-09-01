@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { OrdersSuccessResponse, OrderUpdateResponse } from "./types";
-import { useAuthStore } from "../auth/useAuthStore";
+import { useAuthStore } from "@/store/auth/useAuthStore";
 
 const BASE_URL = `${import.meta.env.VITE_PUBLIC_API_URL}/api`;
 

@@ -135,6 +135,9 @@ body.white-bg {
   .logOut {
     @apply fixed z-10 top-0 s:top-2 lg:top-5 right-5 max-w-10 scale-75;
   }
+  .profileForm {
+    @apply flex justify-center w-screen s:w-full [&>input]:text-start [&>input]:max-w-50 s:[&>input]:max-w-none [&>input]:border-1 [&>input]:border-indigo-800 [&>input]:!mr-4;
+  }
 }
 
 /*COMPONENTS (actionBtn, gridLoader)*/

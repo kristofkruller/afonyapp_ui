@@ -65,6 +65,16 @@ function App() {
             />
           }
         />
+        <Route
+          path="pass"
+          element={
+            <FullPageFeedBack
+              content="Jelszó sikeresen megváltoztatva"
+              btnContent="Vissza a bejelentkezéshez"
+              dark={true}
+            />
+          }
+        />
       </Route>
     </Routes>
   );

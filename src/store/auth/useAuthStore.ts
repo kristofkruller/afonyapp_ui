@@ -49,6 +49,9 @@ export const useAuthStore = create<AuthState>()(
         if (logoutTimer) clearTimeout(logoutTimer);
         logoutTimer = null;
         set({ token: null, user: null });
+
+        // explicit clear
+        localStorage.removeItem("auth-storage");
       },
 
       isTokenValid: () => {

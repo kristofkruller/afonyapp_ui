@@ -1,24 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { AxiosError } from "axios";
 
-import { Title } from "../assets/TextStlye";
+import { Title } from "@/components/assets/TextStlye";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import { ActionBtn, FormInput } from "../assets/Button";
-import Logo from "../assets/Logo";
-import PopUp, { type PopUpProps } from "../assets/PopUp";
-import { useUiStore } from "@/store/ui/useUiStore";
-import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
-import { nickRegex } from "../welcome/AskNick";
-import { InputError } from "../error/DashError";
+import { ActionBtn, FormInput } from "@/components/assets/Button";
+import Logo from "@/components/assets/Logo";
+import PopUp, { type PopUpProps } from "@/components/assets/PopUp";
+import { InputError } from "@/components/error/DashError";
+import useChangeName from "./useChangeName";
+import useChangePassWord from "./useChangePassWord";
+import { strongPasswordRegex } from "@/helpers";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { token, user } = useAuthStore((s) => s);
-
-  useEffect(() => {
-    if (!token || !user) navigate("/unauthorized");
-  }, [token, user, navigate]);
+  const { user, token } = useAuthStore((s) => s);
 
   const [error, setError] = useState("");
 
@@ -28,56 +23,54 @@ const Profile = () => {
     content: "",
     btnContent: [],
   });
-  const { togglePopUp } = useUiStore();
-  const userNickMutation = useUpdateUserNick();
 
   const [nick, setNick] = useState("");
-  const changeName = (name: string) => {
-    const trimmedNick = name.trim();
-    if (!trimmedNick || !nickRegex.test(trimmedNick)) {
-      setError(
-        "Minimum 3, maximum 24 karaktert adj meg becenévként, speciális karakter nélkül!"
-      );
+  const changeName = useChangeName(setPopUp, setError);
+
+  // PASS
+  const [originalPassWord, setOriginalPassWord] = useState("");
+  const [passWord, setPassWord] = useState("");
+  const [passWordConfirm, setPassWordConfirm] = useState("");
+  const [passOn, setPassOn] = useState(false);
+  const togglePassOn = () => setPassOn(!passOn);
+
+  // AUTHGUARD
+  useEffect(() => {
+    if ((!token || !user) && !passOn) {
+      navigate("/unauthorized");
+    }
+  }, [token, user, navigate, passOn]);
+
+  const resetStates = () => {
+    setNick("");
+    setOriginalPassWord("");
+    setPassWord("");
+    setPassWordConfirm("");
+    setError("");
+    setPopUp({ title: "", content: "", btnContent: [] });
+    if (passOn) setPassOn(false);
+  };
+
+  const changePassWord = useChangePassWord(setPopUp, setError);
+
+  const changePassWordHandler = () => {
+    if (passWord === passWordConfirm) {
+      if (
+        !strongPasswordRegex.test(passWordConfirm) ||
+        !strongPasswordRegex.test(originalPassWord)
+      ) {
+        setError(
+          "A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert"
+        );
+        return;
+      }
+
+      changePassWord(originalPassWord, passWordConfirm);
+      return;
+    } else {
+      setError("A megadott jelszavak eltérnek!");
       return;
     }
-
-    togglePopUp();
-    setPopUp({
-      title: "Név megváltoztatása",
-      content: `Az új appban használandó neved ${name}, kérlek erősítsd meg!`,
-      btnContent: [
-        {
-          content: "Megerősítem",
-          onClick: () => {
-            userNickMutation.mutate(
-              {
-                nick: trimmedNick,
-              },
-              {
-                onSuccess: () => console.debug(`nick ✅`),
-                onError: (error: AxiosError<ErrorResponse>) => {
-                  const msg =
-                    error?.response?.data &&
-                    typeof error.response.data.message === "string"
-                      ? error.response.data.message
-                      : "Ismeretlen hiba";
-                  setError(msg);
-                },
-              }
-            );
-            togglePopUp();
-          },
-        },
-        {
-          content: "Vissza",
-          onClick: () => {
-            setError("");
-            setPopUp({ title: "", content: "", btnContent: [] });
-            togglePopUp();
-          },
-        },
-      ],
-    });
   };
 
   return (
@@ -89,7 +82,14 @@ const Profile = () => {
         sign="alert_sign"
       />
       <div className="logOut translate-x-[-45%] s:translate-x-[-80%] lg:translate-x-[-160%]">
-        <ActionBtn content="Vissza" onClick={() => navigate("/dashboard")} />
+        <ActionBtn
+          content="Vissza"
+          onClick={() => {
+            if (passOn) togglePassOn();
+            resetStates();
+            navigate("/dashboard");
+          }}
+        />
       </div>
       <main
         className="flex flex-col justify-start s:justify-center
@@ -103,19 +103,57 @@ const Profile = () => {
           disabled={true}
           onChange={(e) => e.preventDefault()}
         />
-        <div
-          className="flex justify-center w-screen s:w-full
-        [&>input]:text-start [&>input]:max-w-50 s:[&>input]:max-w-none [&>input]:border-1 [&>input]:border-indigo-800 [&>input]:!mr-4"
-        >
-          <label className="whitespace-nowrap !pl-4 !pr-1 !py-2">Név:</label>
-          <FormInput
-            name="nick"
-            placeholder={user?.nick}
-            disabled={false}
-            value={nick}
-            onChange={(e) => setNick(e.target.value)}
-          />
-        </div>
+        {!passOn ? (
+          <div className="profileForm">
+            <label className="whitespace-nowrap !pl-4 !pr-1 !py-2">Név:</label>
+            <FormInput
+              name="nick"
+              placeholder={user?.nick}
+              disabled={false}
+              value={nick}
+              onChange={(e) => setNick(e.target.value)}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            <div className="profileForm flex-col s:flex-row items-center s:justify-between !ml-4 s:!ml-0">
+              <label className="whitespace-nowrap s:!pl-4 s:!pr-1 s:!py-2">
+                Jelenlegi jelszó:
+              </label>
+              <FormInput
+                name="pass"
+                placeholder="x x x x x"
+                disabled={false}
+                value={originalPassWord}
+                onChange={(e) => setOriginalPassWord(e.target.value)}
+              />
+            </div>
+            <div className="profileForm flex-col s:flex-row items-center s:justify-between !ml-4 s:!ml-0">
+              <label className="whitespace-nowrap s:!pl-4 s:!pr-1 s:!py-2">
+                Új jelszó:
+              </label>
+              <FormInput
+                name="newPass"
+                placeholder="o o o o o"
+                disabled={false}
+                value={passWord}
+                onChange={(e) => setPassWord(e.target.value)}
+              />
+            </div>
+            <div className="profileForm flex-col s:flex-row items-center s:justify-between !ml-4 s:!ml-0">
+              <label className="whitespace-nowrap s:!pl-4 s:!pr-1 s:!py-2">
+                Új jelszó ismét:
+              </label>
+              <FormInput
+                name="newPassConfirm"
+                placeholder="o o o o o"
+                disabled={false}
+                value={passWordConfirm}
+                onChange={(e) => setPassWordConfirm(e.target.value)}
+              />
+            </div>
+          </div>
+        )}
         {error && (
           <div className="text-center">
             <InputError error={error} />
@@ -124,14 +162,40 @@ const Profile = () => {
         <div
           className="max-w-full flex flex-wrap s:flex-row gap-2 justify-center s:justify-around
         [&>button]:text-nowrap [&>button]:w-20 s:[&>button]:w-40 [&>button:last-of-type]:bg-rose-800
-        [&>button:last-of-type]:text-[var(--white)] [&>button:last-of-type]:border-none"
+        [&>button:last-of-type]:text-[var(--white)] [&>button:last-of-type]:border-none !my-4"
         >
-          <ActionBtn content="Jelszócsere" />
-          <ActionBtn
-            content="Név módosítása"
-            onClick={() => changeName(nick)}
-          />
-          <ActionBtn content="Profil törlése" />
+          {!passOn ? (
+            <ActionBtn
+              content="Jelszócsere"
+              onClick={() => {
+                setError("");
+                togglePassOn();
+              }}
+            />
+          ) : (
+            <ActionBtn
+              content="Megerősítés"
+              onClick={() => changePassWordHandler()}
+            />
+          )}
+          {!passOn ? (
+            <ActionBtn
+              content="Név módosítása"
+              onClick={() => {
+                if (passOn) togglePassOn();
+                changeName(nick);
+              }}
+            />
+          ) : (
+            <ActionBtn
+              content="Mégse"
+              onClick={() => {
+                setError("");
+                togglePassOn();
+              }}
+            />
+          )}
+          {!passOn && <ActionBtn content="Profil törlése" />}
         </div>
       </main>
     </>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { listOrdersByUser, updateOrderState } from "./orders.api";
-import { useAuthStore } from "../auth/useAuthStore";
+import { useAuthStore } from "@/store/auth/useAuthStore";
 import type { OrdersSuccessResponse } from "./types";
 
 export const useOrders = () => {

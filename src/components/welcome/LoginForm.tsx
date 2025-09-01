@@ -4,11 +4,11 @@ import type { AxiosError } from "axios";
 
 import { useLogin } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import { formReducer, handleFormChange } from "./AuthForm";
+import { formReducer, handleFormChange } from "./authForm";
 import { validateLoginFields } from "@/helpers";
-import Loading from "../assets/Loading";
-import { ActionBtn, FormInput } from "../assets/Button";
-import { InputError } from "../error/DashError";
+import Loading from "@/components/assets/Loading";
+import { ActionBtn, FormInput } from "@/components/assets/Button";
+import { InputError } from "@/components/error/DashError";
 
 const LoginForm = () => {
   const initialForm: LoginFormState = {

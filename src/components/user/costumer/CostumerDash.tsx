@@ -3,7 +3,7 @@ import Logo from "@/components/assets/Logo";
 import { Title } from "@/components/assets/TextStlye";
 import Loading from "@/components/assets/Loading";
 import { Orders } from "./Orders";
-import { ActionBtn } from "../assets/Button";
+import { ActionBtn } from "@/components/assets/Button";
 import { useOrders } from "@/store/orders/useOrdersMutation";
 import { useNavigate } from "react-router-dom";
 

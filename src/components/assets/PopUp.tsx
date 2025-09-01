@@ -32,7 +32,7 @@ const PopUp = ({
         <div className="relative flexCenterCol">
           <div className="flexCenterCol gap-2">
             {title && <Title content={title} dark={true} />}
-            {content && <p>{content}</p>}
+            {content && <p className="text-center">{content}</p>}
           </div>
           {btnContent.length > 0 && (
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 !mt-8">
