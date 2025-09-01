@@ -127,7 +127,7 @@ body.white-bg {
     @apply gap-3 w-full;
   }
   .err {
-    @apply w-full !px-4 text-rose-500/70 text-xs font-bold;
+    @apply w-full !px-4 text-indigo-950/90 text-xs font-bold;
   }
   .contentBox {
     @apply flex flex-col md:flex-row !py-2 justify-around items-center gap-2 md:gap-0;
