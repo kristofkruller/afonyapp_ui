@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  deleteUser,
   login,
   register,
   updateUserNick,
@@ -73,7 +74,21 @@ export const useUpdateUserPassWord = () => {
   >({
     mutationFn: updateUserPassWord,
     onSuccess: () => {
-      navigate("/pass"); // egyből oda dob, mielőtt a logout feldolgozódik
+      navigate("/pass"); // egyből oda dob, mielőtt a logout feldolgozódik mutate layeren
+    },
+  });
+};
+
+export const useDeleteUser = () => {
+  const navigate = useNavigate();
+  return useMutation<
+    void,
+    AxiosError<ErrorResponse>,
+    void
+  >({
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      navigate("/del");
     },
   });
 };

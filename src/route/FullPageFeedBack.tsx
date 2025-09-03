@@ -8,14 +8,12 @@ type Props = {
   content: string;
   btnContent?: string;
   navigateTo?: string;
-  dark?: boolean;
 };
 
 const FullPageFeedBack = ({
   content,
   btnContent = "Vissza a kezdőlapra",
-  navigateTo = "/",
-  dark = false,
+  navigateTo = "/"
 }: Props) => {
   const navigate = useNavigate();
   const [count, setCount] = useState(10);
@@ -34,12 +32,14 @@ const FullPageFeedBack = ({
     };
   }, [navigate, navigateTo]);
 
+  const dark = document.body.classList.contains("animate-bg");
+
   return (
     <section className="main flexCenterCol">
       <Logo />
       <div className="wrapper text-slate-400 uppercase">
-        <Title content={content} dark={dark} />
-        <p className="text-sm text-center text-slate-300 !my-4">
+        <Title content={content}/>
+        <p className={`text-sm text-center ${!dark ? "text-indigo-400" : "text-slate-300"} !my-4`}>
           Átirányítás {count} másodperc múlva...
         </p>
         <ActionBtn content={btnContent} onClick={() => navigate(navigateTo)} />

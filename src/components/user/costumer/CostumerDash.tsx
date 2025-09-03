@@ -18,13 +18,11 @@ const CostumerDash = () => {
         <Loading />
       ) : (
         <section className="wrapper gap-2 [&>button]:text-base [&>button]:text-nowrap">
-          <div
-            className="logOut translate-x-[-135%] md:translate-x-[-175%] lg:translate-x-[-250%]"
-          >
+          <div className="logOut translate-x-[-135%] md:translate-x-[-175%] lg:translate-x-[-250%]">
             <ActionBtn content="Kijelentkezem" onClick={logout} />
           </div>
           <Logo />
-          <Title content={`Üdvözlünk ${user?.nick}!`} dark={true} />
+          <Title content={`Üdvözlünk ${user?.nick}!`} />
           <ActionBtn content="Áfonyát rendelek" />
           <ActionBtn
             content="Profil szerkeztése"

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { Title } from "@/components/assets/TextStlye";
 import { useAuthStore } from "@/store/auth/useAuthStore";
@@ -10,10 +10,13 @@ import { InputError } from "@/components/error/DashError";
 import useChangeName from "./useChangeName";
 import useChangePassWord from "./useChangePassWord";
 import { strongPasswordRegex } from "@/helpers";
+import { useDeleteUser } from "@/store/auth/useAuthMutation";
+import { useUiStore } from "@/store/ui/useUiStore";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { user, token } = useAuthStore((s) => s);
+  const { togglePopUp } = useUiStore();
+  const { user, token, logout } = useAuthStore((s) => s);
 
   const [error, setError] = useState("");
 
@@ -34,12 +37,43 @@ const Profile = () => {
   const [passOn, setPassOn] = useState(false);
   const togglePassOn = () => setPassOn(!passOn);
 
+  // DEL
+  const deleteUser = useDeleteUser();
+  const [del, setDel] = useState(false);
+  const delContent: PopUpProps = {
+    title: "Felhasználó törlése",
+    content:
+      "Kérlek erősítsd meg hogy törlöd a profilod. Ez végérvényesen le fog mondani minden rögzített rendelést is!",
+    btnContent: [
+      {
+        content: "Törlés",
+        onClick: () => {
+          setDel(true);
+          deleteUser.mutate(undefined, {
+            onSuccess: () => {
+              togglePopUp();
+              setPopUp({ title: "", content: "", btnContent: [] });
+              logout();
+            },
+          });
+        },
+      },
+      {
+        content: "Mégse",
+        onClick: () => {
+          togglePopUp();
+          setPopUp({ title: "", content: "", btnContent: [] });
+        },
+      },
+    ],
+  };
+
+  const changePassWord = useChangePassWord(setPopUp, setError);
+
   // AUTHGUARD
-  useEffect(() => {
-    if ((!token || !user) && !passOn) {
-      navigate("/unauthorized");
-    }
-  }, [token, user, navigate, passOn]);
+  if ((!token || !user) && !passOn && !del) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
   const resetStates = () => {
     setNick("");
@@ -50,8 +84,6 @@ const Profile = () => {
     setPopUp({ title: "", content: "", btnContent: [] });
     if (passOn) setPassOn(false);
   };
-
-  const changePassWord = useChangePassWord(setPopUp, setError);
 
   const changePassWordHandler = () => {
     if (passWord === passWordConfirm) {
@@ -96,7 +128,7 @@ const Profile = () => {
       items-center gap-2 max-w-screen xs:max-w-90"
       >
         <Logo />
-        <Title content={"Profil szerkeztése"} dark={true} />
+        <Title content={"Profil szerkeztése"} />
         <FormInput
           name="email"
           placeholder={user?.email}
@@ -195,7 +227,15 @@ const Profile = () => {
               }}
             />
           )}
-          {!passOn && <ActionBtn content="Profil törlése" />}
+          {!passOn && (
+            <ActionBtn
+              content="Profil törlése"
+              onClick={() => {
+                setPopUp(delContent);
+                togglePopUp();
+              }}
+            />
+          )}
         </div>
       </main>
     </>

@@ -49,3 +49,13 @@ export const updateUserPassWord = async (payload: {
     },
   });
 };
+
+export const deleteUser = async (): Promise<void> => {
+  const token = useAuthStore.getState().token;
+
+  await axios.delete(`${BASE_URL}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -65,7 +65,7 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      isAdmin: () => get().user?.type === "admin",
+      isAdmin: () => get().user?.type !== "user",
     }),
     {
       name: "auth-storage", // localStorage key

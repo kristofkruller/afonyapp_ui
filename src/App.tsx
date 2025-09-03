@@ -3,12 +3,11 @@ import { useEffect } from "react";
 
 import { useAuthStore } from "./store/auth/useAuthStore";
 
-import Dash from "./route/Dash";
 import WelcomeForm from "./route/WelcomeForm";
 import RouteLayout from "./route/RouteLayout";
 import RouteError from "./components/error/RouteError";
-import FullPageFeedBack from "./route/FullPageFeedBack";
-import Profile from "./components/user/Profile";
+
+import RouteCollection from "./route/RouteCollection";
 
 function App() {
   const user = useAuthStore((s) => s.user);
@@ -31,50 +30,9 @@ function App() {
     <Routes>
       <Route element={<RouteLayout />} errorElement={<RouteError />}>
         <Route index element={<WelcomeForm />} />
-        <Route
-          path="activated"
-          element={
-            <FullPageFeedBack
-              content="Sikeresen aktiváltad a regisztrációdat, kérlek jelentkezz be"
-              btnContent="Vissza a bejelentkezéshez"
-            />
-          }
-        />
-        <Route
-          path="registered"
-          element={
-            <FullPageFeedBack
-              content="Sikeres regisztráció, kérlek nézd meg az emailed"
-              btnContent="Vissza a bejelentkezéshez"
-            />
-          }
-        />
-        <Route path="dashboard" element={<Dash />} />
-        <Route path="profile" element={<Profile />} />
-
-        <Route
-          path="*"
-          element={<FullPageFeedBack content="Ez az útvonal nem létezik" />}
-        />
-        <Route
-          path="unauthorized"
-          element={
-            <FullPageFeedBack
-              content="Sajnos nem tudtunk azonosítani, kérlek jelentkezz be ismét"
-              btnContent="Vissza a bejelentkezéshez"
-            />
-          }
-        />
-        <Route
-          path="pass"
-          element={
-            <FullPageFeedBack
-              content="Jelszó sikeresen megváltoztatva"
-              btnContent="Vissza a bejelentkezéshez"
-              dark={true}
-            />
-          }
-        />
+        {RouteCollection.map(({ path, element }) => (
+          <Route path={path} element={element} />
+        ))}
       </Route>
     </Routes>
   );

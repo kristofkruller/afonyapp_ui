@@ -51,7 +51,7 @@ const AskNick = () => {
   return (
     <section className="wrapper gap-4 w-full [&>input]:border-1 [&>input]:border-indigo-800">
       <Logo />
-      <Title content={"Kérlek add meg hogy szólíthatunk!"} dark={true} />
+      <Title content={"Kérlek add meg hogy szólíthatunk!"} />
       <FormInput
         name="nick"
         type="text"

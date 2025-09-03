@@ -10,7 +10,7 @@ export interface AuthState {
 export type User = {
   id: string;
   email: string;
-  type: "user" | "admin";
+  type: "user" | "admin" | "owner";
   nick: string;
   exp: number;
 };
