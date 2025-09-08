@@ -18,7 +18,7 @@ export const useOrders = () => {
     if (query.data?.token) {
       setToken(query.data.token);
     } else {
-      console.log("Token nem frissült!")
+      // console.log("Token nem frissült!")
     }
   }, [query.data?.token, setToken]);
 

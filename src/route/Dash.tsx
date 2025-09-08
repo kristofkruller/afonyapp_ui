@@ -20,9 +20,8 @@ const Dash = () => {
       return;
     }
   });
-
-  if (!user?.nick || user.nick.trim() === "") {
-    console.warn(user);
+  // console.log(user?.nick.length)
+  if (!user?.nick || user.nick.trim() == '' || user.nick.length < 3) {
     return <AskNick />;
   }
 

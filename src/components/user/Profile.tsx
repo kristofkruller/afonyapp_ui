@@ -128,7 +128,7 @@ const Profile = () => {
       items-center gap-2 max-w-screen xs:max-w-90"
       >
         <Logo />
-        <Title content={"Profil szerkeztése"} />
+        <Title content={"Profil szerkesztése"} />
         <FormInput
           name="email"
           placeholder={user?.email}
@@ -154,6 +154,7 @@ const Profile = () => {
               </label>
               <FormInput
                 name="pass"
+                type="password"
                 placeholder="x x x x x"
                 disabled={false}
                 value={originalPassWord}
@@ -166,6 +167,7 @@ const Profile = () => {
               </label>
               <FormInput
                 name="newPass"
+                type="password"
                 placeholder="o o o o o"
                 disabled={false}
                 value={passWord}
@@ -178,6 +180,7 @@ const Profile = () => {
               </label>
               <FormInput
                 name="newPassConfirm"
+                type="password"
                 placeholder="o o o o o"
                 disabled={false}
                 value={passWordConfirm}

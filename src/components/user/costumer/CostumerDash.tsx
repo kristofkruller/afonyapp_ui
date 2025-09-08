@@ -25,7 +25,7 @@ const CostumerDash = () => {
           <Title content={`Üdvözlünk ${user?.nick}!`} />
           <ActionBtn content="Áfonyát rendelek" />
           <ActionBtn
-            content="Profil szerkeztése"
+            content="Profil szerkesztése"
             onClick={() => navigate("/profile")}
           />
           <h1 className="text-xl font-extrabold !py-2">Rendeléseim</h1>

@@ -86,7 +86,7 @@ export const Orders = ({ orders }: OrdersProps) => {
     Hamarosan keresni fogunk a kiszállítás várható idejével kapcsolatban.`;
 
   return (
-    <section className="flexCenterCol gap-4">
+    <section className="flexCenterCol gap-4 [&>div]:last-of-type:!mb-4">
       <PopUp
         content={popUpState.content}
         title={popUpState.title}
@@ -97,12 +97,14 @@ export const Orders = ({ orders }: OrdersProps) => {
         <div
           key={id + i}
           className={`border-2 border-solid border-indigo-800 rounded-xl [&>*]:!px-2
-            max-w-100 md:max-w-fit
-          ${
-            order.status !== "Lemondott" && order.status !== "Teljesített"
+            max-w-100 md:max-w-fit w-full
+          ${  
+              order.status === "Beérkezett"
               ? `bg-[var(--lavender)]`
               : order.status === "Teljesített"
               ? `bg-teal-50`
+              : order.status === "Megerősített"
+              ? `bg-indigo-200`
               : `bg-[var(--white)]`
           }`}
         >
@@ -112,12 +114,16 @@ export const Orders = ({ orders }: OrdersProps) => {
               src={
                 order.status === "Teljesített"
                   ? "laughingAf.png"
+                  : order.status === "Megerősített"
+                  ? "afi_icon_smiley.png"
                   : order.status === "Lemondott"
                   ? "cancelledAf.png"
                   : "happyAf.png"
               }
               alt="Status Icon"
-              className="max-w-30 transition-all"
+              className={`max-w-30 transition-all ${
+                order.status === "Megerősített" && "scale-[120%]"
+              }`}
             />
             {/* CENTER */}
             <div className="gap-1 md:[&>*]:text-start [&>*]:text-indigo-800 text-nowrap text-xs md:text-base md:!m-0 min-w-max">
