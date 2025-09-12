@@ -34,3 +34,19 @@ type InputProps = {
   placeholder?: string;
   disabled?: boolean;
 };
+
+// DATA
+type Amount = {
+  id: number;
+  kg: number;
+  cost: number;
+};
+type Delivery = {
+  id: number;
+  city: string;
+  cost: number;
+};
+type DeliveryMethod = {
+  id: string;
+  content: string;
+}

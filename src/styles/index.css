@@ -42,6 +42,7 @@ html * {
 html,
 body {
   overflow-x: hidden;
+  color: var(--color-indigo-900);
 }
 a {
   color: inherit;
@@ -51,7 +52,7 @@ body,
 #root {
   margin: 0 auto;
 
-  min-width: 320px;
+  min-width: 280px;
   min-height: 100vh;
 
   display: flex;
@@ -129,14 +130,14 @@ body.white-bg {
   .err {
     @apply w-full !px-4 text-indigo-950/90 text-xs font-bold;
   }
-  .contentBox {
-    @apply flex flex-col md:flex-row !py-2 justify-around items-center gap-2 md:gap-0;
+  .contentBox { /*order content*/
+    @apply flex flex-col md:flex-row !py-2 justify-between items-center gap-2 md:gap-0;
   }
   .logOut {
     @apply fixed z-10 top-0 s:top-2 lg:top-5 right-5 max-w-10 scale-75;
   }
   .profileForm {
-    @apply flex justify-center w-screen s:w-full [&>input]:text-start [&>input]:max-w-50 s:[&>input]:max-w-none [&>input]:border-1 [&>input]:border-indigo-800 [&>input]:!mr-4;
+    @apply flex justify-center w-screen s:w-full [&>input]:text-start [&>input]:max-w-50 s:[&>input]:max-w-none [&>input]:border-1 [&>input]:border-indigo-800;
   }
 }
 

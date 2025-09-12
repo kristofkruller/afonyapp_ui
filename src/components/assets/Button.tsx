@@ -1,5 +1,18 @@
 import { memo, useId } from "react";
 
+/**
+ * ActionBtn - A reusable button component with a uniform style.
+ *
+ * Features:
+ * - Dynamically handles coloring based on "isImportant" keywords
+ * - Disables interaction and dims the button when disabled
+ * - Hover animation and responsive styling
+ *
+ * @param content - The button's caption
+ * @param onClick - Event handler for the click
+ * @param disabled - Boolean value that disables the button
+ * @param type - HTML button type (default: "button")
+ */
 const ActionBtn = ({
   content,
   onClick,
@@ -45,7 +58,14 @@ const ActionBtn = ({
   );
 };
 
-// --- Input mező komponens (memozott!) ---
+/**
+ * @param name - string
+ * @param type - string | undefined; (default: "text")
+ * @param value - string | undefined;
+ * @param onChange - (e: ChangeEvent<HTMLInputElement>) => void;
+ * @param placeholder - string | undefined;
+ * @param disabled -  boolean | undefined;
+ */
 const FormInput = memo(
   ({
     name,
