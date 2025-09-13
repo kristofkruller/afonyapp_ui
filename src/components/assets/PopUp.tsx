@@ -5,13 +5,27 @@ import Sign from "./Sign";
 import { Title } from "./TextStlye";
 import { useUiStore } from "@/store/ui/useUiStore";
 
+/**
+ * Props for the PopUp component.
+ */
 export type PopUpProps = {
+  /** The title displayed at the top of the popup. */
   title: string;
+  /** The main content message of the popup. */
   content: string;
+  /** An array of button properties to be rendered within the popup. */
   btnContent: BtnProp[];
+  /** Optional: The name of a PNG image file (without extension) to display as a sign/icon. */
   sign?: string;
 };
 
+/**
+ * A reusable modal/popup component that displays a title, content, and a set of action buttons.
+ * It is controlled by the `useUiStore`'s `isPopUp` state.
+ *
+ * @param {PopUpProps} { title, content, btnContent, sign } - Props for the component.
+ * @returns {JSX.Element | null} The PopUp component if `isPopUp` is true, otherwise null.
+ */
 const PopUp = ({ title, content, btnContent = [], sign }: PopUpProps) => {
   const { isPopUp } = useUiStore();
   const id = useId();

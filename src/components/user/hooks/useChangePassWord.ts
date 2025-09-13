@@ -1,7 +1,7 @@
 import type { AxiosError } from "axios";
 
 import { useUiStore } from "@/store/ui/useUiStore";
-import type { PopUpProps } from "../assets/PopUp";
+import type { PopUpProps } from "../../assets/PopUp";
 import { useUpdateUserPassWord } from "@/store/auth/useAuthMutation";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import { useCallback } from "react";

@@ -10,6 +10,12 @@ type Props = {
   navigateTo?: string;
 };
 
+/**
+ * FullPageFeedBack component displays a full-page feedback message to the user.
+ * It includes a title, an optional button, and a countdown for automatic redirection.
+ *
+ * @param {Props} { content, btnContent, navigateTo } - Props for the component.
+ */
 const FullPageFeedBack = ({
   content,
   btnContent = "Vissza a kezdőlapra",

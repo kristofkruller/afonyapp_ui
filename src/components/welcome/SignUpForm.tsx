@@ -8,6 +8,11 @@ import { ActionBtn } from "@/components/assets/Button";
 import { FormInput, InputError } from "@/components/assets/Input";
 import Loading from "@/components/assets/Loading";
 
+/**
+ * SignUpForm Component
+ *
+ * This component provides a registration form for new users to create an account.
+ */
 const SignUpForm = () => {
   const initialForm: FormState = {
     email: "",
@@ -19,6 +24,10 @@ const SignUpForm = () => {
 
   const registerMutation = useRegister();
 
+  /**
+   * Handles the submission of the registration form.
+   * Performs client-side validation and then attempts to register the user.
+   */
   const handleRegisterSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validateRegisterFields(form);

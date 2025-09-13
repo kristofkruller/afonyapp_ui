@@ -5,7 +5,6 @@ import { useAuthStore } from "./store/auth/useAuthStore";
 
 import WelcomeForm from "./route/WelcomeForm";
 import RouteLayout from "./route/RouteLayout";
-import RouteError from "./components/error/RouteError";
 
 import RouteCollection from "./route/RouteCollection";
 
@@ -28,7 +27,7 @@ function App() {
 
   return (
     <Routes>
-      <Route element={<RouteLayout />} errorElement={<RouteError />}>
+      <Route element={<RouteLayout />}>
         <Route index element={<WelcomeForm />} />
         {RouteCollection.map(({ path, element }) => (
           <Route path={path} element={element} />

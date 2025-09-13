@@ -46,12 +46,17 @@ const CostumerDash = () => {
     );
   };
 
+  const handleLogOut = () => {
+    logout();
+    navigate("/");
+  }
+
   if (isLoading) return <Loading />;
 
   return (
     <section className="wrapper gap-2 [&>button]:text-base [&>button]:text-nowrap [&_h1]:text-xl [&_h1]:font-extrabold [&_h1]:!py-2">
       <div className="logOut translate-x-[-135%] md:translate-x-[-175%] lg:translate-x-[-250%]">
-        <ActionBtn content="Kijelentkezem" onClick={logout} />
+        <ActionBtn content="Kijelentkezem" onClick={handleLogOut} />
       </div>
       <Logo />
       <Title content={`Üdvözlünk ${user?.nick}!`} />

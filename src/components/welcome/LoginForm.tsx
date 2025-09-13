@@ -10,6 +10,11 @@ import Loading from "@/components/assets/Loading";
 import { ActionBtn } from "@/components/assets/Button";
 import { FormInput, InputError } from "@/components/assets/Input";
 
+/**
+ * LoginForm Component
+ *
+ * This component provides a login form for users to authenticate.
+ */
 const LoginForm = () => {
   const initialForm: LoginFormState = {
     email: "",
@@ -27,6 +32,10 @@ const LoginForm = () => {
     if (isTokenValid()) navigate("/dashboard");
   }, [isTokenValid, navigate]);
 
+  /**
+   * Handles the submission of the login form.
+   * Performs client-side validation and then attempts to log in the user.
+   */
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
     // console.log(e)
     e.preventDefault();

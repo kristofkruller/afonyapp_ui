@@ -21,6 +21,14 @@ export type HandleFormChange = (
   form: FormState
 ) => void;
 
+/**
+ * Handles changes in form input fields, updates the form state, and performs client-side validation.
+ *
+ * @param {React.ChangeEvent<HTMLInputElement>} e - The change event from the input field.
+ * @param {React.Dispatch<FormAction>} dispatch - The dispatch function from `useReducer` to update the form state.
+ * @param {React.Dispatch<React.SetStateAction<Partial<FormState>>>} setErrors - The state setter for form errors.
+ * @param {FormState} form - The current state of the form.
+ */
 export const handleFormChange: HandleFormChange = (e, dispatch, setErrors, form) => {
   const { name, value } = e.target;
   const field = name as keyof FormState;

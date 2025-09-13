@@ -10,6 +10,14 @@ import { FormInput, InputError } from "@/components/assets/Input";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 import { nickRegex } from "@/helpers";
 
+/**
+ * AskNick Component
+ *
+ * This component is displayed when a new user needs to set their nickname for the first time.
+ * It provides an input field for the nickname, performs client-side validation,
+ * and then sends the nickname to the backend for storage.
+ * If the user is not properly authenticated or an error occurs, it handles navigation and error display.
+ */
 const AskNick = () => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
@@ -17,6 +25,11 @@ const AskNick = () => {
   const [error, setError] = useState("");
   const userNickMutation = useUpdateUserNick();
 
+  /**
+   * Handles the submission of the nickname form.
+   * Performs client-side validation for the nickname.
+   * If valid, it triggers the `userNickMutation` to update the user's nickname on the backend.
+   */
   const handleSubmit = async () => {
     const trimmedNick = nick.trim();
     if (!trimmedNick || !nickRegex.test(trimmedNick)) {
@@ -27,7 +40,11 @@ const AskNick = () => {
     }
     if (!user || !user.id) {
       setNick("");
-      setError(""); // Hiba a felhasználó inicializálása közben
+      /**
+       * Clears any existing error message.
+       * Navigates the user to the unauthorized page if the user object is not properly initialized.
+       * This typically indicates an authentication issue or a missing user ID.
+       */
       navigate("/unauthorized");
     }
     userNickMutation.mutate(

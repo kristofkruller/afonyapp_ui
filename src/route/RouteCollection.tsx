@@ -9,6 +9,10 @@ type RouteCollection = {
   element: JSX.Element;
 };
 
+/**
+ * Defines the structure for a route object, including its path and the React element to render.
+ * @typedef {object} RouteCollection
+ */
 const RouteCollection: RouteCollection[] = [
   {
     path: "dashboard",
