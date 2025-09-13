@@ -33,6 +33,7 @@ type InputProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   disabled?: boolean;
+  required?: boolean;
 };
 
 // DATA

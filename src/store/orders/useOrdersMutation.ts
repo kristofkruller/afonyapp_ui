@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { listOrdersByUser, updateOrderState } from "./orders.api";
+import { listOrdersByUser, registerOrderOptions, updateOrderState } from "./orders.api";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import type { OrdersSuccessResponse } from "./types";
+import type { OrdersSuccessResponse, RegisterOrderOptionsSuccess } from "./types";
 
 export const useOrders = () => {
   const setToken = useAuthStore((s) => s.setToken);
@@ -34,5 +34,13 @@ export const useUpdateOrderState = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] }); // invalidateQueries gondoskodik róla, hogy a useOrders újra lefusson és friss állapot jöjjön.
     },
+  });
+};
+
+
+export const useOrderOptions = () => {
+  return useQuery<RegisterOrderOptionsSuccess, Error>({
+    queryKey: ["order-store"],
+    queryFn: registerOrderOptions
   });
 };

@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 import Logo from "@/components/assets/Logo";
 import { Title } from "@/components/assets/TextStlye";
-import { ActionBtn, FormInput } from "@/components/assets/Button";
-import { InputError } from "@/components/error/DashError";
+import { ActionBtn } from "@/components/assets/Button";
+import { FormInput, InputError } from "@/components/assets/Input";
 import { useUpdateUserNick } from "@/store/auth/useAuthMutation";
 import { nickRegex } from "@/helpers";
 

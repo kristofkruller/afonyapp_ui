@@ -3,10 +3,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 import { Title } from "@/components/assets/TextStlye";
 import { useAuthStore } from "@/store/auth/useAuthStore";
-import { ActionBtn, FormInput } from "@/components/assets/Button";
+import { ActionBtn } from "@/components/assets/Button";
+import { FormInput, InputError } from "@/components/assets/Input";
 import Logo from "@/components/assets/Logo";
 import PopUp, { type PopUpProps } from "@/components/assets/PopUp";
-import { InputError } from "@/components/error/DashError";
 import useChangeName from "./useChangeName";
 import useChangePassWord from "./useChangePassWord";
 import { strongPasswordRegex } from "@/helpers";
@@ -69,7 +69,7 @@ const Profile = () => {
     togglePopUp();
     setPopUp({ title: "", content: "", btnContent: [] });
   };
-  
+
   /**
    * Predefined popup config for account deletion.
    * Includes confirmation and cancel actions.

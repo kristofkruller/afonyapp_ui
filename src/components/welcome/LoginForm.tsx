@@ -7,8 +7,8 @@ import { useAuthStore } from "@/store/auth/useAuthStore";
 import { formReducer, handleFormChange } from "./authForm";
 import { validateLoginFields } from "@/helpers";
 import Loading from "@/components/assets/Loading";
-import { ActionBtn, FormInput } from "@/components/assets/Button";
-import { InputError } from "@/components/error/DashError";
+import { ActionBtn } from "@/components/assets/Button";
+import { FormInput, InputError } from "@/components/assets/Input";
 
 const LoginForm = () => {
   const initialForm: LoginFormState = {

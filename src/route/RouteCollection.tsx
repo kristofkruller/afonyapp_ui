@@ -2,6 +2,7 @@ import type { JSX } from "react";
 import FullPageFeedBack from "./FullPageFeedBack";
 import Dash from "./Dash";
 import Profile from "@/components/user/Profile";
+import RegisterOrder from "@/components/user/costumer/RegisterOrder";
 
 type RouteCollection = {
   path: string;
@@ -17,6 +18,12 @@ const RouteCollection: RouteCollection[] = [
     path: "profile",
     element: <Profile />,
   },
+  {
+    path: "order",
+    element: <RegisterOrder />,
+  },
+
+  // FullPageFeedBack
   {
     path: "*",
     element: <FullPageFeedBack content="Ez az útvonal nem létezik" />,

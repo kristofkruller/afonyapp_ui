@@ -4,13 +4,18 @@ import { ActionBtn } from "@/components/assets/Button";
 import { useUpdateOrderState } from "@/store/orders/useOrdersMutation";
 import { useUiStore } from "@/store/ui/useUiStore";
 import PopUp, { type PopUpProps } from "@/components/assets/PopUp";
-import { useId, useState } from "react";
+import { useState } from "react";
 
 type OrdersProps = {
   orders: Order[];
 };
+
+/**
+ * Orders component displays a list of user's orders with their status and actions.
+ * Possible to change status by the user they can cancel or confirm if az order is ready to be shipped.
+ * @param {OrdersProps} { orders } - The list of orders to display.
+ */
 export const Orders = ({ orders }: OrdersProps) => {
-  const id = useId();
   const updateOrder = useUpdateOrderState();
 
   // POPUP
@@ -21,7 +26,23 @@ export const Orders = ({ orders }: OrdersProps) => {
     sign: "",
   });
   const { togglePopUp } = useUiStore();
+
+  /**
+   * Displays a confirmation pop-up for canceling an order.
+   * @param {Order} order - The order to be canceled.
+   */
   const lemondomPopUp = (order: Order) => {
+    const handleCancel = () => {
+      updateOrder.mutate({
+        id: order.id,
+        status: "Lemondott",
+      });
+      togglePopUp();
+    };
+    const handleBack = () => {
+      setPopUpState({ title: "", content: "", btnContent: [], sign: "" });
+      togglePopUp();
+    };
     togglePopUp();
     setPopUpState({
       title: "Rendelés lemondása",
@@ -30,26 +51,34 @@ export const Orders = ({ orders }: OrdersProps) => {
       btnContent: [
         {
           content: "LEMONDOM A RENDELÉST",
-          onClick: () => {
-            updateOrder.mutate({
-              id: order.id,
-              status: "Lemondott",
-            });
-            togglePopUp();
-          },
+          onClick: handleCancel,
         },
         {
           content: "Vissza",
-          onClick: () => {
-            setPopUpState({ title: "", content: "", btnContent: [], sign: "" });
-            togglePopUp();
-          },
+          onClick: handleBack,
         },
       ],
       sign: "cancelledAf",
     });
   };
+
+  /**
+   * Displays a confirmation pop-up for confirming an order.
+   * @param {Order} order - The order to be confirmed.
+   */
   const megerositemPopUp = (order: Order) => {
+    const handleConfirm = () => {
+      updateOrder.mutate({
+        id: order.id,
+        status: "Megerősített",
+      });
+      togglePopUp();
+    };
+    const handleBack = () => {
+      setPopUpState({ title: "", content: "", btnContent: [], sign: "" });
+      togglePopUp();
+    };
+
     togglePopUp();
     setPopUpState({
       title: "Rendelés megerősítése",
@@ -58,20 +87,11 @@ export const Orders = ({ orders }: OrdersProps) => {
       btnContent: [
         {
           content: "MEGERŐSÍTEM A RENDELÉST",
-          onClick: () => {
-            updateOrder.mutate({
-              id: order.id,
-              status: "Megerősített",
-            });
-            togglePopUp();
-          },
+          onClick: handleConfirm,
         },
         {
           content: "Vissza",
-          onClick: () => {
-            setPopUpState({ title: "", content: "", btnContent: [], sign: "" });
-            togglePopUp();
-          },
+          onClick: handleBack,
         },
       ],
       sign: "succAf",
@@ -93,13 +113,13 @@ export const Orders = ({ orders }: OrdersProps) => {
         btnContent={popUpState.btnContent}
         sign={popUpState.sign}
       />
-      {orders.map((order, i) => (
+      {orders.map((order) => (
         <div
-          key={id + i}
+          key={order.id}
           className={`border-2 border-solid border-indigo-800 rounded-xl [&>*]:!px-2
             max-w-100 md:max-w-fit w-full
-          ${  
-              order.status === "Beérkezett"
+          ${
+            order.status === "Beérkezett"
               ? `bg-[var(--lavender)]`
               : order.status === "Teljesített"
               ? `bg-teal-50`

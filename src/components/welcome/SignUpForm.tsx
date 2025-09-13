@@ -4,9 +4,9 @@ import type { AxiosError } from "axios";
 import { formReducer, handleFormChange } from "./authForm";
 import { useRegister } from "@/store/auth/useAuthMutation";
 import { validateRegisterFields } from "@/helpers";
-import { ActionBtn, FormInput } from "@/components/assets/Button";
+import { ActionBtn } from "@/components/assets/Button";
+import { FormInput, InputError } from "@/components/assets/Input";
 import Loading from "@/components/assets/Loading";
-import { InputError } from "@/components/error/DashError";
 
 const SignUpForm = () => {
   const initialForm: FormState = {

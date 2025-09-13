@@ -1,5 +1,3 @@
-import { memo, useId } from "react";
-
 /**
  * ActionBtn - A reusable button component with a uniform style.
  *
@@ -58,43 +56,4 @@ const ActionBtn = ({
   );
 };
 
-/**
- * @param name - string
- * @param type - string | undefined; (default: "text")
- * @param value - string | undefined;
- * @param onChange - (e: ChangeEvent<HTMLInputElement>) => void;
- * @param placeholder - string | undefined;
- * @param disabled -  boolean | undefined;
- */
-const FormInput = memo(
-  ({
-    name,
-    type = "text",
-    value,
-    onChange,
-    placeholder,
-    disabled = false,
-  }: InputProps) => {
-    const inputId = useId();
-
-    return (
-      <input
-        className={`bg-white/30 !px-3 !py-1 rounded-3xl text-center text-indigo-950 !caret-indigo-600 ${
-          disabled ? "" : `hover:!px-4`
-        }`}
-        id={inputId}
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        required={true}
-        placeholder={placeholder}
-        disabled={disabled}
-      />
-    );
-  }
-);
-
-FormInput.displayName = "FormInput"; // memóhoz
-
-export { ActionBtn, FormInput };
+export { ActionBtn };
