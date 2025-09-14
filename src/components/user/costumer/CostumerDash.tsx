@@ -33,11 +33,9 @@ const CostumerDash = () => {
 
   /** Conditional rendering helper for orders section. */
   const renderOrders = () => {
-    if (error) return <h1>{`Hiba: ${error}`}</h1>;
-
     if (!data?.orders || data.orders.length === 0)
       return <h1>Nincs rendelésed</h1>;
-
+    if (error) return <h1>{`Hiba: ${error.message}`}</h1>;
     return (
       <>
         <h1>Rendeléseim</h1>
@@ -49,7 +47,7 @@ const CostumerDash = () => {
   const handleLogOut = () => {
     logout();
     navigate("/");
-  }
+  };
 
   if (isLoading) return <Loading />;
 

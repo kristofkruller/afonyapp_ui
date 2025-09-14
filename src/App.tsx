@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useAuthStore } from "./store/auth/useAuthStore";
 
-import WelcomeForm from "./route/WelcomeForm";
+import WelcomeForm from "./components/welcome/WelcomeForm";
 import RouteLayout from "./route/RouteLayout";
 
 import RouteCollection from "./route/RouteCollection";

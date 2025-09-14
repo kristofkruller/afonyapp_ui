@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import FullPageFeedBack from "./FullPageFeedBack";
-import Dash from "./Dash";
+import Dash from "@/components/user/Dash";
 import Profile from "@/components/user/Profile";
 import RegisterOrder from "@/components/user/costumer/RegisterOrder";
 
@@ -77,6 +77,15 @@ const RouteCollection: RouteCollection[] = [
       />
     ),
   },
+  {
+    path: "orderComplete",
+    element: (
+      <FullPageFeedBack
+        content="Köszönjük türelmedet és bizalmadat, a természet ritmusához igazodva igyekszünk minden rendelést a lehető leghamarabb teljesíteni!"
+        btnContent="Vissza a rendelésekhez"
+      />
+    )
+  }
 ];
 
 export default RouteCollection;

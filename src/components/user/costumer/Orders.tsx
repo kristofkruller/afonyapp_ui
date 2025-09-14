@@ -33,6 +33,7 @@ export const Orders = ({ orders }: OrdersProps) => {
    */
   const lemondomPopUp = (order: Order) => {
     const handleCancel = () => {
+      if (!order.id) return;
       updateOrder.mutate({
         id: order.id,
         status: "Lemondott",
@@ -68,6 +69,7 @@ export const Orders = ({ orders }: OrdersProps) => {
    */
   const megerositemPopUp = (order: Order) => {
     const handleConfirm = () => {
+      if (!order.id) return;
       updateOrder.mutate({
         id: order.id,
         status: "Megerősített",
@@ -150,7 +152,7 @@ export const Orders = ({ orders }: OrdersProps) => {
               <h2 className="font-bold">{`#${order.id}`}</h2>
               <p>{`${order.amount} kg Áfonya`}</p>
               <p>{order.deliverytype}</p>
-              <p>{`Rendelés leadva: ${formattedDate(order.cdate)}`}</p>
+              <p>{`Rendelés leadva: ${order.cdate ? formattedDate(order.cdate) : new Date(Date.now()).toISOString()}`}</p>
               <p>
                 Rendelés státusza:{" "}
                 <span className="font-bold">{order.status}</span>

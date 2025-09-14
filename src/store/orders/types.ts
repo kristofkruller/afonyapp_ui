@@ -1,11 +1,19 @@
 export interface Order {
-  id: number;
+  id?: number;
   amount: number;
   deliverytype: string;
-  cdate: string; // ISO dátum formátum pl. "2025-08-10T14:23:00.000Z"
-  status: string;
-  cost: number;
+  cdate?: string; // ISO dátum formátum pl. "2025-08-10T14:23:00.000Z"
+  status?: string;
+  cost?: number;
   telephone: string;
+}
+
+export interface NewOrder extends Order {
+  cropid: number,
+  deliveryCity: number,
+  deliveryAddress: string,
+  name: string,
+  telephone: string,
 }
 
 export interface OrdersSuccessResponse {
@@ -17,11 +25,11 @@ export interface OrderUpdateResponse {
   message: string;
 }
 
-export interface RegisterOrderOptionsSuccess {
+export interface GetOrderOptionsSuccess {
   amount_options: Amount[];
   delivery_options: Delivery[];
 }
-export interface OrderStore extends RegisterOrderOptionsSuccess {
+export interface OrderStore extends GetOrderOptionsSuccess {
   delivery_methods: DeliveryMethod[];
   amountId: string;
   selectAmount: (amountId: string) => void;

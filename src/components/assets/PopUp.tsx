@@ -21,7 +21,8 @@ export type PopUpProps = {
 
 /**
  * A reusable modal/popup component that displays a title, content, and a set of action buttons.
- * It is controlled by the `useUiStore`'s `isPopUp` state.
+ * It is controlled by the `useUiStore`'s `isPopUp` state, so in a component only togglePopUp
+ * needed for this to be shown.
  *
  * @param {PopUpProps} { title, content, btnContent, sign } - Props for the component.
  * @returns {JSX.Element | null} The PopUp component if `isPopUp` is true, otherwise null.

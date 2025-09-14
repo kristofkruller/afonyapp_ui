@@ -2,7 +2,8 @@ import axios from "axios";
 import type {
   OrdersSuccessResponse,
   OrderUpdateResponse,
-  RegisterOrderOptionsSuccess,
+  GetOrderOptionsSuccess,
+  NewOrder,
 } from "./types";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 
@@ -64,24 +65,42 @@ export const updateOrderState = async (
 /**
  * Fetches options required for registering a new order, such as available amounts and delivery locations.
  *
- * @returns {Promise<RegisterOrderOptionsSuccess>} A promise that resolves with the order registration options.
+ * @returns {Promise<GetOrderOptionsSuccess>} A promise that resolves with the order registration options.
  * @throws {Error} If no data is received or the options arrays are empty.
  */
-export const registerOrderOptions =
-  async (): Promise<RegisterOrderOptionsSuccess> => {
-    const token = useAuthStore.getState().token;
+export const getOrderOptions = async (): Promise<GetOrderOptionsSuccess> => {
+  const token = useAuthStore.getState().token;
 
-    const res = await axios.get(`${BASE_URL}/registerOrderOptions`, {
+  const res = await axios.get(`${BASE_URL}/getOrderOptions`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (
+    !res.data ||
+    res.data.amount_options.length < 1 ||
+    res.data.delivery_options.length < 1
+  )
+    throw new Error("Nem érkezett adat!");
+
+  return res.data;
+};
+
+export const registerNewOrder = async (
+  order: NewOrder
+): Promise<OrderUpdateResponse> => {
+  const token = useAuthStore.getState().token;
+  const res = await axios.post(
+    `${BASE_URL}/registerNewOrder`,
+    {order},
+    {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
-
-    if (
-      !res.data ||
-      res.data.amount_options.length < 1 ||
-      res.data.delivery_options.length < 1
-    ) throw new Error("Nem érkezett adat!");
-
-    return res.data;
-  };
+    }
+  );
+  if (!res.data || res.data.orders.length < 1)
+    throw new Error("Az új rendelés rögzítése nem sikerült!");
+  return res.data;
+};
