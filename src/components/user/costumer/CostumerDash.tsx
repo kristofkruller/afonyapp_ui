@@ -56,7 +56,7 @@ const CostumerDash = () => {
       <div className="logOut translate-x-[-135%] md:translate-x-[-175%] lg:translate-x-[-250%]">
         <ActionBtn content="Kijelentkezem" onClick={handleLogOut} />
       </div>
-      <Logo />
+      <Logo navigate={false} />
       <Title content={`Üdvözlünk ${user?.nick}!`} />
       <ActionBtn content="Áfonyát rendelek" onClick={handleNavOrder} />
       <ActionBtn content="Profil szerkesztése" onClick={handleNavProfile} />

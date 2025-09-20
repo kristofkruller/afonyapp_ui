@@ -1,8 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const Logo = () => {
+type LinkProps = {
+  navigate?: boolean;
+};
+
+const Logo = ({ navigate = true }: LinkProps) => {
   return (
-    <Link to="/" className="inline-flex items-center space-x-2">
+    <Link
+      to={navigate ? "/" : "#"}
+      className={`inline-flex items-center space-x-2 ${
+        navigate ? "cursor-pointer" : "cursor-default"
+      }`}
+    >
       <img
         src="/logo_removebg.png"
         alt="Logo Icon"
@@ -10,6 +19,6 @@ const Logo = () => {
       />
     </Link>
   );
-}
+};
 
-export default Logo
+export default Logo;

@@ -89,7 +89,7 @@ const useChangePassWord = (
     setPopUp({
       title: "Jelszó csere",
       content:
-        "Ha biztosan elküldöd, a jelszavad megváltozik, kijelentkeztetünk és az ujjal tudsz bejelentkezni legközelebb.",
+        "Ha biztosan elküldöd, a jelszavad megváltozik, kijelentkeztetünk és az újjal tudsz bejelentkezni legközelebb",
       btnContent: [
         {
           content: "Megerősítem",

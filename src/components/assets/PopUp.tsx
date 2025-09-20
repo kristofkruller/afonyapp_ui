@@ -37,7 +37,7 @@ const PopUp = ({ title, content, btnContent = [], sign }: PopUpProps) => {
         className="fixed flexCenterCol inset-0 z-10 w-full h-full overflow-y-auto overflow-x-hidden"
       >
         <div className="relative flexCenterCol flex-nowrap w-full sm:max-w-lg h-full sm:h-auto bg-[var(--white)]/96 sm:rounded-3xl sm:shadow-2xl !p-4 sm:!p-10 gap-4">
-          {!sign ? <Logo /> : <Sign png={sign} />}
+          {!sign ? <Logo navigate={false} /> : <Sign png={sign} />}
           <div className="relative flexCenterCol">
             <div className="flexCenterCol gap-2">
               {title && <Title content={title} />}

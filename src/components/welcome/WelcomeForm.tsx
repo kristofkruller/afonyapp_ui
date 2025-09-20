@@ -15,7 +15,7 @@ const WelcomeForm = () => {
    */
   return (
     <main className="main flexCenterCol">
-      <Logo />
+      <Logo navigate={false} />
       {signUp ? <SignUpForm /> : <LoginForm />}
       <ActionBtn
         content={signUp ? "Vissza" : "Regisztráció"}
