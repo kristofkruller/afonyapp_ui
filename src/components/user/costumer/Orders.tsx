@@ -88,7 +88,7 @@ export const Orders = ({ orders }: OrdersProps) => {
         Ezt követően 24 órán belül felvesszük veled a kapcsolatot a kiszállítás vagy személyes átvétel részleteivel.`,
       btnContent: [
         {
-          content: "MEGERŐSÍTEM A RENDELÉST",
+          content: "Megerősítem",
           onClick: handleConfirm,
         },
         {
@@ -179,15 +179,15 @@ export const Orders = ({ orders }: OrdersProps) => {
             </div>
           </div>
           {order.status === "Beérkezett" ? (
-            <p className="font-hun text-xs text-start italic opacity-70 !pb-2">
+            <p className="text-xs text-start italic opacity-70 !pb-2">
               {beErkezettInfo}
             </p>
           ) : order.status === "Értesített" ? (
-            <p className="font-hun text-xs text-start italic opacity-70 !pb-2">
+            <p className="text-xs text-start italic opacity-70 !pb-2">
               {ertesitettInfo}
             </p>
           ) : order.status === "Megerősített" ? (
-            <p className="font-hun text-xs text-start italic opacity-70 !pb-2">
+            <p className="text-xs text-start italic opacity-70 !pb-2">
               {megErositettInfo}
             </p>
           ) : (

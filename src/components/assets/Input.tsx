@@ -50,6 +50,6 @@ FormInput.displayName = "FormInput"; // react devtools memóhoz
  * @returns JSX.Element | null
  */
 const InputError = ({ error }: { error?: string }) =>
-  error ? <p className="err">{error}</p> : null;
+  error ? <p className="err text-center">{error}</p> : null;
 
 export { FormInput, InputError };

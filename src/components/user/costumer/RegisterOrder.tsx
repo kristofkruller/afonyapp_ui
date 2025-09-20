@@ -262,7 +262,7 @@ const RegisterOrder = () => {
                   onSelect={(id) => selectCity(id)}
                 />
               </div>
-              <div className="profileForm flex-col s:flex-row items-center s:justify-center  [&>input]:w-90">
+              <div className="profileForm flex-col items-center justify-center  [&>input]:w-90">
                 {/* <label className="whitespace-nowrap s:!pl-4 s:!pr-1 s:!py-2">
                   Cím további része
                 </label> */}
@@ -272,6 +272,7 @@ const RegisterOrder = () => {
                   placeholder="Cím további része"
                   onChange={handleDeliveryAddress}
                 />
+                <InputError error={formErrors.deliveryAddress} />
               </div>
             </>
           )}
@@ -288,7 +289,7 @@ const RegisterOrder = () => {
                 : `Az átvétel pontos időpontjáról e-mailben fogunk értesítést küldeni, amint a termés átvehető. Kizárólag az e-mailben megjelölt időpontban tudunk vásárlókat fogadni, mivel a tanyán nem működik állandó nyitvatartás vagy kiszolgálóhely.`
             }
           />
-          <div className="flex flex-col items-center justify-center [&_*]:text-indigo-600 [&_input]:max-w-[17ch] s:[&_input]:max-w-[23ch] gap-2 s:gap-0 text-sm [&>p]:text-center">
+          <div className="flex flex-col items-center justify-center [&_*]:text-indigo-600 [&_input]:max-w-[17ch] s:[&_input]:max-w-[23ch] gap-2 s:gap-0 text-sm">
             <h2 className="font-bold text-base">
               {methodId === "1" ? "Átvevő " : "Megrendelő "}elérhetőségei
             </h2>
