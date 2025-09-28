@@ -1,3 +1,36 @@
+# afonyapp_ui
+
+Frontend application for the **AfonyApp** project, built with **React**, **TypeScript**, **Vite**, and styled using **TailwindCSS**.  
+The app communicates with the backend API (`afonyapp_api`) to provide user registration, authentication, order handling, and profile management.
+
+## ⚙️ Installation
+
+1. Clone the repository:
+
+   ```bash
+  git clone https://github.com/kristofkruller/afonyapp_ui.git
+  cd afonyapp_ui
+  ```
+
+2. Install dependencies:
+
+`npm install`
+
+## 🚀 Running the Application
+
+### Development
+`npm run dev`
+
+The app will be available at default `http://localhost:5173`
+
+### Production Build
+`npm run build`
+
+### Preview Production Build
+`npm run preview`
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
